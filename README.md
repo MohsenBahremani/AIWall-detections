@@ -83,6 +83,3 @@ Contributions welcome once the event schema and first rule pack are published. U
 
 [Apache License 2.0](LICENSE)
 
-## Topics
-
-`ai-security` · `llm-security` · `detection-engineering` · `wazuh` · `grafana` · `loki` · `mitre-atlas` · `siem` · `security-monitoring`
