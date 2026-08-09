@@ -12,8 +12,9 @@ Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 - [validation/samples/aiwall.audit.v1.sample.jsonl](validation/samples/aiwall.audit.v1.sample.jsonl) — sample corpus
 - [wazuh/decoders/aiwall_decoders.xml](wazuh/decoders/aiwall_decoders.xml) — Wazuh JSON decoders (named fields)
 - [wazuh/rules/aiwall_rules.xml](wazuh/rules/aiwall_rules.xml) — secret / policy / cost / daily-limit alerts
+- [sigma/rules/](sigma/rules/) — Sigma mirrors of those alerts (Lucene-convertible)
 
-Still ahead: Sigma, Grafana, Loki queries, validation harness, playbooks.
+Still ahead: Grafana, Loki queries, validation harness, playbooks.
 
 ## Purpose
 
@@ -39,7 +40,12 @@ AIWall-detections/
 │   ├── rules/
 │   ├── tests/
 │   └── README.md
-└── (sigma / grafana / loki / playbooks — coming next)
+├── sigma/
+│   ├── rules/
+│   ├── tests/
+│   └── README.md
+├── requirements.txt
+└── (grafana / loki / playbooks — coming next)
 ```
 
 ## Relationship to AIWall

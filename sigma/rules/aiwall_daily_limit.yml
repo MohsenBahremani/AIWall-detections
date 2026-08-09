@@ -1,0 +1,26 @@
+title: AIWall Daily Limit Blocked
+id: 0914d47a-6dc1-4c23-9b67-b7841519cedf
+status: experimental
+description: |
+  Detects when AIWall blocks a request because a profile hit its daily usage
+  limit (reason=daily-limit). Mirrors Wazuh rule 100213.
+references:
+  - https://github.com/MohsenBah/AIWall-detections
+  - https://github.com/MohsenBah/AIWall/blob/main/docs/family-mode.md
+author: AIWall
+date: 2026-08-08
+tags:
+  - attack.impact
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason: 'daily-limit'
+  condition: selection
+falsepositives:
+  - Profiles that have intentionally exhausted daily quotas in testing
+level: medium
