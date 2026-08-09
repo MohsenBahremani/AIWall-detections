@@ -1,0 +1,61 @@
+{
+  "schema": "aiwall.validation.expected.v1",
+  "sample": "samples/aiwall.audit.v1.sample.jsonl",
+  "description": "Expected detection hits for the canonical sample corpus. Wazuh alert rules (level>0), Sigma mirrors, and Loki query ids.",
+  "hits": [
+    {
+      "request_id": "req-secret-001",
+      "wazuh_rule_id": 100210,
+      "sigma_rule": "aiwall_secret_leak_blocked",
+      "loki_query_ids": ["aiwall_secret_leak_blocked", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-policy-001",
+      "wazuh_rule_id": 100211,
+      "sigma_rule": "aiwall_policy_block",
+      "loki_query_ids": ["aiwall_policy_block", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-cost-001",
+      "wazuh_rule_id": 100212,
+      "sigma_rule": "aiwall_cost_threshold",
+      "loki_query_ids": ["aiwall_cost_threshold", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-limit-001",
+      "wazuh_rule_id": 100213,
+      "sigma_rule": "aiwall_daily_limit",
+      "loki_query_ids": ["aiwall_daily_limit", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-agent-001",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_agent_approval_denied", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-redact-001",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_secret_redacted"]
+    },
+    {
+      "request_id": "req-error-001",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_upstream_error"]
+    },
+    {
+      "request_id": "req-allow-001",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": []
+    },
+    {
+      "request_id": "req-warn-001",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": []
+    }
+  ]
+}

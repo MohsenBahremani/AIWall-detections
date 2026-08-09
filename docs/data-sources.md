@@ -44,6 +44,9 @@ Canonical samples for decoder/rule development live under `validation/samples/`:
 
 These samples use **fake** rule ids and reasons only — no real secrets.
 
+Expected detection hits for that corpus: [`validation/expected_hits.json`](../validation/expected_hits.json).  
+Run everything offline: `python3 validation/validate_rules.py` ([validation/README.md](../validation/README.md)).
+
 ## Wazuh
 
 Decoders that turn each JSONL line into named fields:

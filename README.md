@@ -15,8 +15,9 @@ Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 - [sigma/rules/](sigma/rules/) — Sigma mirrors of those alerts (Lucene-convertible)
 - [grafana/](grafana/) — Overview dashboard + sample Loki stack
 - [loki/](loki/) — LogQL query pack (secret / policy / cost / daily-limit + triage)
+- [validation/](validation/) — sample corpus, expected hits, `validate_rules.py` (CI)
 
-Still ahead: validation harness, playbooks.
+Still ahead: MITRE ATLAS mapping, playbooks, detection roadmap.
 
 ## Purpose
 
@@ -36,7 +37,10 @@ AIWall-detections/
 ├── docs/
 │   └── data-sources.md
 ├── validation/
-│   └── samples/
+│   ├── samples/
+│   ├── expected_hits.json
+│   ├── validate_rules.py
+│   └── README.md
 ├── wazuh/
 │   ├── decoders/
 │   ├── rules/
@@ -56,7 +60,7 @@ AIWall-detections/
 │   ├── tests/
 │   └── README.md
 ├── requirements.txt
-└── (playbooks / harness — coming next)
+└── (playbooks / ATLAS — coming next)
 ```
 
 ## Relationship to AIWall
@@ -71,6 +75,15 @@ AIWall-detections
 ```
 
 Upstream schema docs: [AIWall docs/audit-export.md](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md).
+
+## Validate
+
+```bash
+pip install -r requirements.txt
+python3 validation/validate_rules.py
+```
+
+See [validation/README.md](validation/README.md). GitHub Actions runs this on `main` pushes and PRs.
 
 ## Prerequisites
 
