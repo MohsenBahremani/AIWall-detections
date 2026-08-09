@@ -1,0 +1,111 @@
+{
+  "schema": "aiwall.loki.queries.v1",
+  "label_selector": "{job=\"aiwall\"}",
+  "notes": "Paste into Grafana Explore / Loki. Assumes Promtail (or equivalent) labels job=aiwall and leaves the JSON line intact for | json.",
+  "queries": [
+    {
+      "id": "aiwall_secret_leak_blocked",
+      "title": "Secret leak blocked",
+      "description": "Mirrors Wazuh 100210 / Sigma aiwall_secret_leak_blocked.",
+      "wazuh_rule_id": 100210,
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"secret-detected\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "secret-detected"
+      },
+      "expect_request_ids": ["req-secret-001"]
+    },
+    {
+      "id": "aiwall_policy_block",
+      "title": "Content policy block",
+      "description": "Mirrors Wazuh 100211 / Sigma aiwall_policy_block.",
+      "wazuh_rule_id": 100211,
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"category-blocked\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "category-blocked"
+      },
+      "expect_request_ids": ["req-policy-001"]
+    },
+    {
+      "id": "aiwall_cost_threshold",
+      "title": "Cost threshold block",
+      "description": "Mirrors Wazuh 100212 / Sigma aiwall_cost_threshold.",
+      "wazuh_rule_id": 100212,
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"cost-threshold\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "cost-threshold"
+      },
+      "expect_request_ids": ["req-cost-001"]
+    },
+    {
+      "id": "aiwall_daily_limit",
+      "title": "Daily usage limit block",
+      "description": "Mirrors Wazuh 100213 / Sigma aiwall_daily_limit.",
+      "wazuh_rule_id": 100213,
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"daily-limit\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "daily-limit"
+      },
+      "expect_request_ids": ["req-limit-001"]
+    },
+    {
+      "id": "aiwall_all_blocks",
+      "title": "All blocked requests",
+      "description": "Every audit line with decision=block in the corpus.",
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block"
+      },
+      "expect_request_ids": [
+        "req-secret-001",
+        "req-policy-001",
+        "req-cost-001",
+        "req-limit-001",
+        "req-agent-001"
+      ]
+    },
+    {
+      "id": "aiwall_agent_approval_denied",
+      "title": "Agent approval denied",
+      "description": "Agent shell/file action blocked after approval denial.",
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"approval-denied\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "approval-denied"
+      },
+      "expect_request_ids": ["req-agent-001"]
+    },
+    {
+      "id": "aiwall_secret_redacted",
+      "title": "Secret redacted (allowed with redaction)",
+      "description": "Request proceeded after secret redaction.",
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"redact\" | reason=\"secret-redacted\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "redact",
+        "reason": "secret-redacted"
+      },
+      "expect_request_ids": ["req-redact-001"]
+    },
+    {
+      "id": "aiwall_upstream_error",
+      "title": "Upstream provider errors",
+      "description": "Gateway recorded decision=error (e.g. provider unreachable).",
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"error\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "error"
+      },
+      "expect_request_ids": ["req-error-001"]
+    }
+  ]
+}

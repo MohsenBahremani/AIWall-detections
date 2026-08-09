@@ -51,6 +51,7 @@ Decoders that turn each JSONL line into named fields:
 - [`wazuh/decoders/aiwall_decoders.xml`](../wazuh/decoders/aiwall_decoders.xml)
 - Alert rules (secret / policy / cost / daily-limit): [`wazuh/rules/aiwall_rules.xml`](../wazuh/rules/aiwall_rules.xml)
 - Sigma mirrors: [`sigma/rules/`](../sigma/rules/) ([sigma/README.md](../sigma/README.md))
+- Loki / LogQL pack: [`loki/queries.json`](../loki/queries.json) ([loki/README.md](../loki/README.md))
 - Install / logtest notes: [`wazuh/README.md`](../wazuh/README.md)
 
 ## Compatibility promise
