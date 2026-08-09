@@ -42,6 +42,13 @@ Canonical samples for decoder/rule development live under `validation/samples/`:
 
 These samples use **fake** rule ids and reasons only — no real secrets.
 
+## Wazuh
+
+Decoders that turn each JSONL line into named fields:
+
+- [`wazuh/decoders/aiwall_decoders.xml`](../wazuh/decoders/aiwall_decoders.xml)
+- Install / logtest notes: [`wazuh/README.md`](../wazuh/README.md)
+
 ## Compatibility promise
 
 Detection content in this repo targets `aiwall.audit.v1`. A future `v2` will be documented before rules migrate. Ignore unknown fields when parsing.

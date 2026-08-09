@@ -6,12 +6,13 @@ Turns AIWall audit logs into monitoring content: Wazuh, Sigma, Grafana, Loki, an
 
 ## Where things stand
 
-Schema freeze is in progress: **`aiwall.audit.v1`** JSON Lines from AIWall.
+Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 
 - [docs/data-sources.md](docs/data-sources.md) — how to pull events and what fields mean
-- [validation/samples/aiwall.audit.v1.sample.jsonl](validation/samples/aiwall.audit.v1.sample.jsonl) — sample corpus for decoders/rules
+- [validation/samples/aiwall.audit.v1.sample.jsonl](validation/samples/aiwall.audit.v1.sample.jsonl) — sample corpus
+- [wazuh/decoders/aiwall_decoders.xml](wazuh/decoders/aiwall_decoders.xml) — Wazuh JSON decoders (named fields)
 
-Still ahead: Wazuh decoders/rules, Sigma, Grafana, Loki queries, validation harness, playbooks.
+Still ahead: Wazuh rules, Sigma, Grafana, Loki queries, validation harness, playbooks.
 
 ## Purpose
 
@@ -32,7 +33,11 @@ AIWall-detections/
 │   └── data-sources.md
 ├── validation/
 │   └── samples/
-└── (wazuh / sigma / grafana / loki / playbooks — coming next)
+├── wazuh/
+│   ├── decoders/
+│   ├── tests/
+│   └── README.md
+└── (sigma / grafana / loki / playbooks — coming next)
 ```
 
 ## Relationship to AIWall

@@ -1,0 +1,26 @@
+<!--
+  AIWall audit JSONL decoders (schema aiwall.audit.v1)
+  Install: copy to /var/ossec/etc/decoders/ on the Wazuh manager, then restart
+  wazuh-manager (or reload ruleset). See wazuh/README.md.
+-->
+
+<!-- Raw NDJSON lines (localfile / filebeat without syslog wrapper) -->
+<decoder name="aiwall-audit">
+  <prematch>"schema":"aiwall.audit.v1"</prematch>
+  <plugin_decoder>JSON_Decoder</plugin_decoder>
+  <json_null_field>empty</json_null_field>
+  <json_array_structure>array</json_array_structure>
+</decoder>
+
+<!-- Syslog / journald tagged as program "aiwall" with JSON payload -->
+<decoder name="aiwall-audit-syslog">
+  <program_name>^aiwall$</program_name>
+</decoder>
+
+<decoder name="aiwall-audit-syslog-json">
+  <parent>aiwall-audit-syslog</parent>
+  <prematch>"schema":"aiwall.audit.v1"</prematch>
+  <plugin_decoder offset="after_parent">JSON_Decoder</plugin_decoder>
+  <json_null_field>empty</json_null_field>
+  <json_array_structure>array</json_array_structure>
+</decoder>
