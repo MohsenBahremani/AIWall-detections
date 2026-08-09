@@ -1,0 +1,59 @@
+<!--
+  AIWall audit alert rules (schema aiwall.audit.v1)
+  Requires: wazuh/decoders/aiwall_decoders.xml
+  Install: copy to /var/ossec/etc/rules/ then restart wazuh-manager.
+  Custom id range 100200–100299 reserved for AIWall in this pack.
+-->
+
+<group name="aiwall,">
+
+  <rule id="100200" level="0">
+    <decoded_as>aiwall-audit</decoded_as>
+    <description>AIWall audit event.</description>
+  </rule>
+
+  <rule id="100201" level="0">
+    <decoded_as>aiwall-audit-syslog-json</decoded_as>
+    <description>AIWall audit event (syslog).</description>
+  </rule>
+
+  <!-- Secret leak blocked before reaching a provider -->
+  <rule id="100210" level="12">
+    <if_sid>100200,100201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^secret-detected$</field>
+    <description>AIWall blocked a secret leak (reason=secret-detected).</description>
+    <mitre>
+      <id>T1552</id>
+    </mitre>
+    <group>aiwall_secret_leak,pci_dss_10.2.4,</group>
+  </rule>
+
+  <!-- Family / content policy block (category-based) -->
+  <rule id="100211" level="10">
+    <if_sid>100200,100201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^category-blocked$</field>
+    <description>AIWall blocked a request by content policy (reason=category-blocked).</description>
+    <group>aiwall_policy_block,</group>
+  </rule>
+
+  <!-- Estimated cost above policy threshold -->
+  <rule id="100212" level="10">
+    <if_sid>100200,100201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^cost-threshold$</field>
+    <description>AIWall blocked a request over the cost threshold.</description>
+    <group>aiwall_cost_threshold,</group>
+  </rule>
+
+  <!-- Per-profile daily usage limit -->
+  <rule id="100213" level="10">
+    <if_sid>100200,100201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^daily-limit$</field>
+    <description>AIWall blocked a request that hit a daily usage limit.</description>
+    <group>aiwall_daily_limit,</group>
+  </rule>
+
+</group>

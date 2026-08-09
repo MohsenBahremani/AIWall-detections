@@ -47,6 +47,7 @@ These samples use **fake** rule ids and reasons only — no real secrets.
 Decoders that turn each JSONL line into named fields:
 
 - [`wazuh/decoders/aiwall_decoders.xml`](../wazuh/decoders/aiwall_decoders.xml)
+- Alert rules (secret / policy / cost / daily-limit): [`wazuh/rules/aiwall_rules.xml`](../wazuh/rules/aiwall_rules.xml)
 - Install / logtest notes: [`wazuh/README.md`](../wazuh/README.md)
 
 ## Compatibility promise

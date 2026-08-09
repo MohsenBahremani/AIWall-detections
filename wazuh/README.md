@@ -15,10 +15,23 @@ Matches `aiwall.audit.v1` JSON Lines and extracts fields via Wazuh `JSON_Decoder
 | `matched_rule_ids`, `categories` | arrays |
 | `input_length`, `output_length`, `*_tokens`, `estimated_cost`, `redaction_count`, `latency_ms` | metrics |
 
-### Install
+## Rules (Phase 6.3)
+
+File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
+
+| Rule id | Level | When |
+|---|---|---|
+| `100200` / `100201` | 0 | Parent: any AIWall audit event (jsonl / syslog) |
+| `100210` | 12 | `decision=block` + `reason=secret-detected` |
+| `100211` | 10 | `decision=block` + `reason=category-blocked` |
+| `100212` | 10 | `decision=block` + `reason=cost-threshold` |
+| `100213` | 10 | `decision=block` + `reason=daily-limit` |
+
+## Install
 
 ```bash
 sudo cp wazuh/decoders/aiwall_decoders.xml /var/ossec/etc/decoders/
+sudo cp wazuh/rules/aiwall_rules.xml /var/ossec/etc/rules/
 sudo systemctl restart wazuh-manager
 ```
 
@@ -33,20 +46,19 @@ Point a `<localfile>` (or agent) at AIWall JSONL, for example:
 
 Or ship lines under syslog program name `aiwall` (uses the `aiwall-audit-syslog*` decoders).
 
-### Verify with wazuh-logtest
+## Verify
+
+With a Wazuh manager:
 
 ```bash
 sudo /var/ossec/bin/wazuh-logtest < validation/samples/aiwall.audit.v1.sample.jsonl
 ```
 
-Expect decoder name `aiwall-audit` and named fields such as `decision`, `reason`, `policy_id`.
+Expect decoder `aiwall-audit` and rule ids `100210`–`100213` on the matching sample lines.
 
-Without a Wazuh manager, run the offline check:
+Without Wazuh, offline checks:
 
 ```bash
 python3 wazuh/tests/test_decoder_fields.py
+python3 wazuh/tests/test_rules_match.py
 ```
-
-### Rules
-
-Rules that fire on secret-leak / policy / cost / daily-limit land in Phase 6.3 under `wazuh/rules/`.
