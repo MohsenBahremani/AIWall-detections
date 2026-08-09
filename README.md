@@ -13,8 +13,9 @@ Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 - [wazuh/decoders/aiwall_decoders.xml](wazuh/decoders/aiwall_decoders.xml) — Wazuh JSON decoders (named fields)
 - [wazuh/rules/aiwall_rules.xml](wazuh/rules/aiwall_rules.xml) — secret / policy / cost / daily-limit alerts
 - [sigma/rules/](sigma/rules/) — Sigma mirrors of those alerts (Lucene-convertible)
+- [grafana/](grafana/) — Overview dashboard + sample Loki stack
 
-Still ahead: Grafana, Loki queries, validation harness, playbooks.
+Still ahead: Loki query pack docs, validation harness, playbooks.
 
 ## Purpose
 
@@ -44,8 +45,13 @@ AIWall-detections/
 │   ├── rules/
 │   ├── tests/
 │   └── README.md
+├── grafana/
+│   ├── dashboards/
+│   ├── provisioning/
+│   ├── tests/
+│   └── docker-compose.yml
 ├── requirements.txt
-└── (grafana / loki / playbooks — coming next)
+└── (loki query pack / playbooks — coming next)
 ```
 
 ## Relationship to AIWall

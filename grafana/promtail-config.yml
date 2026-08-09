@@ -1,0 +1,36 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: aiwall
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: aiwall
+          __path__: /samples/aiwall.audit.v1.sample.jsonl
+    pipeline_stages:
+      - json:
+          expressions:
+            schema: schema
+            decision: decision
+            reason: reason
+            provider: provider
+            model: model
+            policy_id: policy_id
+            estimated_cost: estimated_cost
+            request_id: request_id
+      - labels:
+          schema:
+          decision:
+          reason:
+          provider:
+          model:
+      # Ingest-time stamps; JSON timestamp stays available via | json.

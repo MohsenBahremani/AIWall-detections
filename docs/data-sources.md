@@ -26,6 +26,8 @@ Optional filters (same as the control-panel event explorer):
 
 Ship the file (or stream equivalent lines) into Wazuh, Loki, or any NDJSON-capable pipeline.
 
+For a local Grafana view of the sample corpus, see [`grafana/README.md`](../grafana/README.md) (`docker compose up`).
+
 ## Event shape (summary)
 
 Every line includes `"schema":"aiwall.audit.v1"` plus privacy-safe fields: decision, reason, policy, rule ids (array), categories (array), model/provider, tokens, cost, latency. **No raw prompts.**
