@@ -1,18 +1,19 @@
 # AIWall-detections
 
-Detection rules, dashboards, and validation content for AIWall security events and AI traffic monitoring.
+Detection rules, dashboards, and validation content for AIWall security events.
 
-This repository turns AIWall audit logs into actionable security monitoring: Wazuh rules, Sigma rules, Grafana dashboards, Loki queries, and response playbooks.
+Turns AIWall audit logs into monitoring content: Wazuh, Sigma, Grafana, Loki, and playbooks.
 
-## Status
+## Where things stand
 
-**Placeholder repository.** Content will be added after [AIWall](https://github.com/MohsenBah/AIWall) emits stable audit logs (Phase 6 of the product roadmap).
+Schema freeze is in progress: **`aiwall.audit.v1`** JSON Lines from AIWall.
 
-Do not expect working rules or dashboards here yet.
+- [docs/data-sources.md](docs/data-sources.md) — how to pull events and what fields mean
+- [validation/samples/aiwall.audit.v1.sample.jsonl](validation/samples/aiwall.audit.v1.sample.jsonl) — sample corpus for decoders/rules
+
+Still ahead: Wazuh decoders/rules, Sigma, Grafana, Loki queries, validation harness, playbooks.
 
 ## Purpose
-
-AIWall generates structured events when it allows, warns, blocks, or redacts AI traffic. This repo packages that telemetry for security teams:
 
 | Content | Description |
 |---|---|
@@ -23,63 +24,39 @@ AIWall generates structured events when it allows, warns, blocks, or redacts AI 
 | **Playbooks** | Response guides for common AI security events |
 | **MITRE ATLAS mappings** | Map detections to adversarial ML techniques |
 
-## Planned Structure
+## Layout
 
 ```text
 AIWall-detections/
 ├── docs/
-│   ├── data-sources.md
-│   ├── detection-roadmap.md
-│   ├── coverage-matrix.md
-│   ├── mitre-atlas-mapping.md
-│   └── validation-results.md
-├── wazuh/
-│   ├── decoders/
-│   ├── rules/
-│   └── tests/
-├── sigma/
-│   └── rules/
-├── grafana/
-│   └── dashboards/
-├── loki/
-│   └── queries/
+│   └── data-sources.md
 ├── validation/
-│   ├── samples/
-│   └── validate_rules.py
-└── playbooks/
-    ├── secret-leak-detected.md
-    ├── child-safety-block.md
-    └── suspicious-agent-action.md
+│   └── samples/
+└── (wazuh / sigma / grafana / loki / playbooks — coming next)
 ```
 
 ## Relationship to AIWall
 
 ```text
-AIWall (core product)
-    |
-    +-- emits audit events (JSON)
-    |
-    v
-AIWall-detections (this repo)
-    |
-    +-- Wazuh / Sigma / Grafana / Loki content
-    +-- validation samples and playbooks
+AIWall
+  └── GET /events/export.jsonl   (schema: aiwall.audit.v1)
+         │
+         v
+AIWall-detections
+  └── Wazuh / Sigma / Grafana / Loki + samples
 ```
 
-This repo is useful independently once AIWall audit events are documented. You can adapt the rules for other AI gateway deployments that emit similar event schemas.
+Upstream schema docs: [AIWall docs/audit-export.md](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md).
 
 ## Prerequisites
 
-- A running AIWall instance forwarding audit logs to your SIEM or log stack
-- Wazuh, Grafana/Loki, or a Sigma-compatible SIEM (depending on which content you use)
-
-Setup instructions will be added when the first detection pack ships.
+- AIWall exporting `aiwall.audit.v1` JSONL
+- Wazuh, Grafana/Loki, or a Sigma-compatible SIEM (depending on which pack you use)
 
 ## Contributing
 
-Contributions welcome once the event schema and first rule pack are published. Use DCO sign-off on commits.
+DCO sign-off on commits. Prefer sample events without real secrets.
 
 ## License
 
 [Apache License 2.0](LICENSE)
-
