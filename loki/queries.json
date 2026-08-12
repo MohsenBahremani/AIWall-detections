@@ -1,13 +1,14 @@
 {
   "schema": "aiwall.loki.queries.v1",
   "label_selector": "{job=\"aiwall\"}",
-  "notes": "Paste into Grafana Explore / Loki. Assumes Promtail (or equivalent) labels job=aiwall and leaves the JSON line intact for | json.",
+  "notes": "Paste into Grafana Explore / Loki. Assumes Promtail (or equivalent) labels job=aiwall and leaves the JSON line intact for | json. ATLAS ids: docs/atlas-mapping.json.",
   "queries": [
     {
       "id": "aiwall_secret_leak_blocked",
       "title": "Secret leak blocked",
       "description": "Mirrors Wazuh 100210 / Sigma aiwall_secret_leak_blocked.",
       "wazuh_rule_id": 100210,
+      "atlas_ids": ["AML.T0057", "AML.T0055"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"secret-detected\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -21,6 +22,7 @@
       "title": "Content policy block",
       "description": "Mirrors Wazuh 100211 / Sigma aiwall_policy_block.",
       "wazuh_rule_id": 100211,
+      "atlas_ids": ["AML.T0048"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"category-blocked\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -34,6 +36,7 @@
       "title": "Cost threshold block",
       "description": "Mirrors Wazuh 100212 / Sigma aiwall_cost_threshold.",
       "wazuh_rule_id": 100212,
+      "atlas_ids": ["AML.T0034"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"cost-threshold\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -47,6 +50,7 @@
       "title": "Daily usage limit block",
       "description": "Mirrors Wazuh 100213 / Sigma aiwall_daily_limit.",
       "wazuh_rule_id": 100213,
+      "atlas_ids": ["AML.T0034", "AML.T0046"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"daily-limit\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -58,7 +62,7 @@
     {
       "id": "aiwall_all_blocks",
       "title": "All blocked requests",
-      "description": "Every audit line with decision=block in the corpus.",
+      "description": "Every audit line with decision=block in the corpus. Roll-up; see docs/coverage-matrix.md.",
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -76,6 +80,7 @@
       "id": "aiwall_agent_approval_denied",
       "title": "Agent approval denied",
       "description": "Agent shell/file action blocked after approval denial.",
+      "atlas_ids": ["AML.T0050", "AML.T0053"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"approval-denied\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -88,6 +93,7 @@
       "id": "aiwall_secret_redacted",
       "title": "Secret redacted (allowed with redaction)",
       "description": "Request proceeded after secret redaction.",
+      "atlas_ids": ["AML.T0057"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"redact\" | reason=\"secret-redacted\"",
       "filters": {
         "schema": "aiwall.audit.v1",
@@ -100,6 +106,7 @@
       "id": "aiwall_upstream_error",
       "title": "Upstream provider errors",
       "description": "Gateway recorded decision=error (e.g. provider unreachable).",
+      "atlas_ids": ["AML.T0029"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"error\"",
       "filters": {
         "schema": "aiwall.audit.v1",

@@ -1,0 +1,135 @@
+{
+  "schema": "aiwall.atlas.mapping.v1",
+  "atlas_version_note": "Technique IDs from MITRE ATLAS (atlas.mitre.org). Cross-checked against MITRE SAFE-AI / ATLAS public technique catalog. Review when ATLAS ships a new major version.",
+  "atlas_home": "https://atlas.mitre.org/",
+  "detections": [
+    {
+      "id": "aiwall_secret_leak_blocked",
+      "title": "Secret leak blocked",
+      "wazuh_rule_id": 100210,
+      "sigma_rule": "aiwall_secret_leak_blocked",
+      "loki_query_ids": ["aiwall_secret_leak_blocked"],
+      "atlas": [
+        {
+          "id": "AML.T0057",
+          "name": "LLM Data Leakage",
+          "primary": true
+        },
+        {
+          "id": "AML.T0055",
+          "name": "Unsecured Credentials",
+          "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM02"],
+      "attack_related": ["T1552"]
+    },
+    {
+      "id": "aiwall_policy_block",
+      "title": "Content policy block",
+      "wazuh_rule_id": 100211,
+      "sigma_rule": "aiwall_policy_block",
+      "loki_query_ids": ["aiwall_policy_block"],
+      "atlas": [
+        {
+          "id": "AML.T0048",
+          "name": "External Harms",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM05"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_cost_threshold",
+      "title": "Cost threshold block",
+      "wazuh_rule_id": 100212,
+      "sigma_rule": "aiwall_cost_threshold",
+      "loki_query_ids": ["aiwall_cost_threshold"],
+      "atlas": [
+        {
+          "id": "AML.T0034",
+          "name": "Cost Harvesting",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM10"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_daily_limit",
+      "title": "Daily usage limit block",
+      "wazuh_rule_id": 100213,
+      "sigma_rule": "aiwall_daily_limit",
+      "loki_query_ids": ["aiwall_daily_limit"],
+      "atlas": [
+        {
+          "id": "AML.T0034",
+          "name": "Cost Harvesting",
+          "primary": true
+        },
+        {
+          "id": "AML.T0046",
+          "name": "Spamming ML System with Chaff Data",
+          "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM10"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_agent_approval_denied",
+      "title": "Agent approval denied",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_agent_approval_denied"],
+      "atlas": [
+        {
+          "id": "AML.T0050",
+          "name": "Command and Scripting Interpreter",
+          "primary": true
+        },
+        {
+          "id": "AML.T0053",
+          "name": "LLM Plugin Compromise",
+          "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM06"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_secret_redacted",
+      "title": "Secret redacted",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_secret_redacted"],
+      "atlas": [
+        {
+          "id": "AML.T0057",
+          "name": "LLM Data Leakage",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM02"],
+      "attack_related": ["T1552"]
+    },
+    {
+      "id": "aiwall_upstream_error",
+      "title": "Upstream provider errors",
+      "wazuh_rule_id": null,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_upstream_error"],
+      "atlas": [
+        {
+          "id": "AML.T0029",
+          "name": "Denial of ML Service",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM10"],
+      "attack_related": [],
+      "notes": "Availability / dependency signal; not proof of an adversary. Mapped so triage queries still have an ATLAS anchor."
+    }
+  ]
+}

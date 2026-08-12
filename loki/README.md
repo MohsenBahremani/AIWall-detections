@@ -33,3 +33,6 @@ python3 loki/tests/test_logql_match.py
 Asserts each query’s filters match exactly the listed `request_id`s in
 `validation/samples/aiwall.audit.v1.sample.jsonl`, and that the published LogQL
 string includes those same `| field="value"` clauses.
+
+ATLAS technique ids for each detection query live in `atlas_ids` (see
+[`docs/coverage-matrix.md`](../docs/coverage-matrix.md)).

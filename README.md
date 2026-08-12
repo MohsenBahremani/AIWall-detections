@@ -16,8 +16,9 @@ Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 - [grafana/](grafana/) — Overview dashboard + sample Loki stack
 - [loki/](loki/) — LogQL query pack (secret / policy / cost / daily-limit + triage)
 - [validation/](validation/) — sample corpus, expected hits, `validate_rules.py` (CI)
+- [docs/coverage-matrix.md](docs/coverage-matrix.md) — MITRE ATLAS mapping for every detection
 
-Still ahead: MITRE ATLAS mapping, playbooks, detection roadmap.
+Still ahead: playbooks, detection roadmap.
 
 ## Purpose
 
@@ -35,7 +36,9 @@ Still ahead: MITRE ATLAS mapping, playbooks, detection roadmap.
 ```text
 AIWall-detections/
 ├── docs/
-│   └── data-sources.md
+│   ├── data-sources.md
+│   ├── coverage-matrix.md
+│   └── atlas-mapping.json
 ├── validation/
 │   ├── samples/
 │   ├── expected_hits.json
@@ -60,7 +63,7 @@ AIWall-detections/
 │   ├── tests/
 │   └── README.md
 ├── requirements.txt
-└── (playbooks / ATLAS — coming next)
+└── (playbooks / detection-roadmap — coming next)
 ```
 
 ## Relationship to AIWall

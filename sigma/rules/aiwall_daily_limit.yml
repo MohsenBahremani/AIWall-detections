@@ -11,6 +11,8 @@ author: AIWall
 date: 2026-08-08
 tags:
   - attack.impact
+  - atlas.aml.t0034
+  - atlas.aml.t0046
 logsource:
   product: aiwall
   service: audit
