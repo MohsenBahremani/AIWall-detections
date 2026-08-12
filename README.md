@@ -1,107 +1,113 @@
 # AIWall-detections
 
-Detection rules, dashboards, and validation content for AIWall security events.
+Detection packs for [AIWall](https://github.com/MohsenBah/AIWall) audit logs: Wazuh, Sigma, Grafana/Loki, playbooks, and MITRE ATLAS mappings.
 
-Turns AIWall audit logs into monitoring content: Wazuh, Sigma, Grafana, Loki, and playbooks.
+**Event contract:** `aiwall.audit.v1` JSON Lines — no raw prompts.  
+Upstream schema: [AIWall `docs/audit-export.md`](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md).
 
-## Where things stand
+## Quick start: load rules against AIWall logs
 
-Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
+### 1. Export events from AIWall
 
-- [docs/data-sources.md](docs/data-sources.md) — how to pull events and what fields mean
-- [validation/samples/aiwall.audit.v1.sample.jsonl](validation/samples/aiwall.audit.v1.sample.jsonl) — sample corpus
-- [wazuh/decoders/aiwall_decoders.xml](wazuh/decoders/aiwall_decoders.xml) — Wazuh JSON decoders (named fields)
-- [wazuh/rules/aiwall_rules.xml](wazuh/rules/aiwall_rules.xml) — secret / policy / cost / daily-limit alerts
-- [sigma/rules/](sigma/rules/) — Sigma mirrors of those alerts (Lucene-convertible)
-- [grafana/](grafana/) — Overview dashboard + sample Loki stack
-- [loki/](loki/) — LogQL query pack (secret / policy / cost / daily-limit + triage)
-- [validation/](validation/) — sample corpus, expected hits, `validate_rules.py` (CI)
-- [docs/coverage-matrix.md](docs/coverage-matrix.md) — MITRE ATLAS mapping for every detection
-- [playbooks/](playbooks/) — triage/response for secret leak, child safety, agent actions
-
-Still ahead: detection roadmap doc for new operators.
-
-## Purpose
-
-| Content | Description |
-|---|---|
-| **Wazuh rules** | Decoders and rules for AIWall audit events |
-| **Sigma rules** | Portable detection logic for SIEM platforms |
-| **Grafana dashboards** | Usage, blocks, secret leaks, and cost panels |
-| **Loki queries** | Log queries for AI traffic monitoring |
-| **Playbooks** | Response guides for common AI security events |
-| **MITRE ATLAS mappings** | Map detections to adversarial ML techniques |
-
-## Layout
-
-```text
-AIWall-detections/
-├── docs/
-│   ├── data-sources.md
-│   ├── coverage-matrix.md
-│   └── atlas-mapping.json
-├── validation/
-│   ├── samples/
-│   ├── expected_hits.json
-│   ├── validate_rules.py
-│   └── README.md
-├── wazuh/
-│   ├── decoders/
-│   ├── rules/
-│   ├── tests/
-│   └── README.md
-├── sigma/
-│   ├── rules/
-│   ├── tests/
-│   └── README.md
-├── grafana/
-│   ├── dashboards/
-│   ├── provisioning/
-│   ├── tests/
-│   └── docker-compose.yml
-├── loki/
-│   ├── queries.json
-│   ├── tests/
-│   └── README.md
-├── playbooks/
-│   ├── secret-leak-detected.md
-│   ├── child-safety-block.md
-│   ├── suspicious-agent-action.md
-│   └── README.md
-├── requirements.txt
-└── (detection-roadmap — coming next)
+```bash
+curl -OJ "http://127.0.0.1:8080/events/export.jsonl?window_hours=24"
 ```
 
-## Relationship to AIWall
+Or use the sample corpus while testing:
 
-```text
-AIWall
-  └── GET /events/export.jsonl   (schema: aiwall.audit.v1)
-         │
-         v
-AIWall-detections
-  └── Wazuh / Sigma / Grafana / Loki + samples
+```bash
+cp validation/samples/aiwall.audit.v1.sample.jsonl /tmp/aiwall.audit.jsonl
 ```
 
-Upstream schema docs: [AIWall docs/audit-export.md](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md).
+Field reference: [docs/data-sources.md](docs/data-sources.md).
 
-## Validate
+### 2. Pick a pack
+
+| Goal | Path | Docs |
+|---|---|---|
+| SIEM alerts (Wazuh) | `wazuh/decoders/` + `wazuh/rules/` | [wazuh/README.md](wazuh/README.md) |
+| Portable rules (Sigma) | `sigma/rules/*.yml` | [sigma/README.md](sigma/README.md) |
+| Dashboards + LogQL | `grafana/` + `loki/queries.json` | [grafana/README.md](grafana/README.md), [loki/README.md](loki/README.md) |
+
+**Wazuh (minimal):**
+
+```bash
+sudo cp wazuh/decoders/aiwall_decoders.xml /var/ossec/etc/decoders/
+sudo cp wazuh/rules/aiwall_rules.xml /var/ossec/etc/rules/
+# point a localfile at your JSONL — see wazuh/README.md
+sudo systemctl restart wazuh-manager
+```
+
+**Grafana sample stack (no Wazuh required):**
+
+```bash
+cd grafana && docker compose up -d
+# open http://localhost:3000/d/aiwall-overview
+# Explore → paste queries from loki/queries.json
+```
+
+**Offline check (CI entrypoint):**
 
 ```bash
 pip install -r requirements.txt
 python3 validation/validate_rules.py
 ```
 
-See [validation/README.md](validation/README.md). GitHub Actions runs this on `main` pushes and PRs.
+### 3. Triage hits
+
+| Alert / reason | Playbook |
+|---|---|
+| Secret leak / redact | [playbooks/secret-leak-detected.md](playbooks/secret-leak-detected.md) |
+| Child / category block | [playbooks/child-safety-block.md](playbooks/child-safety-block.md) |
+| Suspicious agent action | [playbooks/suspicious-agent-action.md](playbooks/suspicious-agent-action.md) |
+
+ATLAS mapping for every detection: [docs/coverage-matrix.md](docs/coverage-matrix.md).  
+What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.md).
+
+## What’s in the box
+
+| Content | Description |
+|---|---|
+| **Wazuh** | Decoders + rules 100210–100213 (secret, category, cost, daily-limit) |
+| **Sigma** | Mirrors of those four alerts (Lucene-convertible) |
+| **Grafana** | Overview dashboard (decisions, cost, models, providers) |
+| **Loki** | LogQL pack for the same alerts + agent/redact/error triage |
+| **Validation** | Sample corpus, expected hits, CI harness |
+| **Playbooks** | Triage and response for common events |
+| **ATLAS** | Technique coverage matrix |
+
+## Layout
+
+```text
+AIWall-detections/
+├── docs/           data-sources, ATLAS matrix, detection-roadmap
+├── validation/     samples, expected_hits, validate_rules.py
+├── wazuh/          decoders, rules, tests
+├── sigma/          rules, tests
+├── grafana/        dashboard + sample Loki stack
+├── loki/           LogQL query pack
+├── playbooks/      response guides
+└── requirements.txt
+```
+
+## Relationship to AIWall
+
+```text
+AIWall  ──GET /events/export.jsonl──►  AIWall-detections
+         (schema: aiwall.audit.v1)      Wazuh / Sigma / Grafana / Loki
+```
+
+This repo **detects and explains** audit outcomes. Enforcement stays in AIWall policies and guardrails.
 
 ## Prerequisites
 
-- AIWall exporting `aiwall.audit.v1` JSONL
-- Wazuh, Grafana/Loki, or a Sigma-compatible SIEM (depending on which pack you use)
+- AIWall exporting `aiwall.audit.v1` JSONL (or the sample file for dry runs)
+- Optional: Wazuh manager, Docker (Grafana sample), or a Sigma-compatible SIEM
 
 ## Contributing
 
-DCO sign-off on commits. Prefer sample events without real secrets.
+DCO sign-off on commits. Prefer sample events without real secrets.  
+New detection checklist: [docs/detection-roadmap.md](docs/detection-roadmap.md#how-to-propose-a-new-detection).
 
 ## License
 

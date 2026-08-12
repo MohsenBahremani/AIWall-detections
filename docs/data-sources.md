@@ -57,6 +57,7 @@ Decoders that turn each JSONL line into named fields:
 - Loki / LogQL pack: [`loki/queries.json`](../loki/queries.json) ([loki/README.md](../loki/README.md))
 - MITRE ATLAS coverage: [`coverage-matrix.md`](coverage-matrix.md) ([`atlas-mapping.json`](atlas-mapping.json))
 - Response playbooks: [`../playbooks/`](../playbooks/)
+- Roadmap (shipped vs next): [`detection-roadmap.md`](detection-roadmap.md)
 - Install / logtest notes: [`wazuh/README.md`](../wazuh/README.md)
 
 ## Compatibility promise

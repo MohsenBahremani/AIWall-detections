@@ -28,6 +28,7 @@ SIGMA_DIR = ROOT / "sigma" / "rules"
 LOKI_PACK = ROOT / "loki" / "queries.json"
 ATLAS_MAP = ROOT / "docs" / "atlas-mapping.json"
 COVERAGE_MD = ROOT / "docs" / "coverage-matrix.md"
+ROADMAP_MD = ROOT / "docs" / "detection-roadmap.md"
 PLAYBOOKS = (
     ROOT / "playbooks" / "secret-leak-detected.md",
     ROOT / "playbooks" / "child-safety-block.md",
@@ -346,6 +347,29 @@ def check_playbooks() -> list[str]:
     return errors
 
 
+def check_operator_docs() -> list[str]:
+    """README + roadmap must be enough to load rules against AIWall logs."""
+    errors: list[str] = []
+    readme = (ROOT / "README.md").read_text()
+    roadmap = ROADMAP_MD.read_text()
+    for needle in (
+        "events/export.jsonl",
+        "wazuh/decoders",
+        "docker compose",
+        "validate_rules.py",
+        "detection-roadmap.md",
+    ):
+        if needle not in readme:
+            errors.append(f"README.md should mention {needle!r}")
+    if "Quick start" not in readme:
+        errors.append("README.md missing Quick start section")
+    if "How to propose a new detection" not in roadmap:
+        errors.append("detection-roadmap.md missing contribution checklist")
+    if "Shipped" not in roadmap:
+        errors.append("detection-roadmap.md missing shipped section")
+    return errors
+
+
 def run_pack_tests() -> list[str]:
     errors: list[str] = []
     for script in PACK_TESTS:
@@ -372,7 +396,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    for path in (EXPECTED_PATH, SAMPLE_JSONL, WAZUH_RULES, LOKI_PACK, ATLAS_MAP, COVERAGE_MD):
+    for path in (
+        EXPECTED_PATH,
+        SAMPLE_JSONL,
+        WAZUH_RULES,
+        LOKI_PACK,
+        ATLAS_MAP,
+        COVERAGE_MD,
+        ROADMAP_MD,
+    ):
         if not path.is_file():
             print(f"missing {path}", file=sys.stderr)
             return 1
@@ -415,6 +447,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAIL playbook: {err}", file=sys.stderr)
         return 1
     print(f"ok {len(PLAYBOOKS)} response playbooks")
+
+    doc_errors = check_operator_docs()
+    if doc_errors:
+        for err in doc_errors:
+            print(f"FAIL docs: {err}", file=sys.stderr)
+        return 1
+    print("ok operator docs (README + detection-roadmap)")
 
     if not args.skip_pack_tests:
         pack_errors = run_pack_tests()
