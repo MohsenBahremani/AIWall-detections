@@ -28,6 +28,11 @@ SIGMA_DIR = ROOT / "sigma" / "rules"
 LOKI_PACK = ROOT / "loki" / "queries.json"
 ATLAS_MAP = ROOT / "docs" / "atlas-mapping.json"
 COVERAGE_MD = ROOT / "docs" / "coverage-matrix.md"
+PLAYBOOKS = (
+    ROOT / "playbooks" / "secret-leak-detected.md",
+    ROOT / "playbooks" / "child-safety-block.md",
+    ROOT / "playbooks" / "suspicious-agent-action.md",
+)
 
 PACK_TESTS = (
     ROOT / "wazuh" / "tests" / "test_decoder_fields.py",
@@ -325,6 +330,22 @@ def check_atlas_coverage() -> list[str]:
     return errors
 
 
+def check_playbooks() -> list[str]:
+    errors: list[str] = []
+    required_headings = ("## Triage", "## Response")
+    for path in PLAYBOOKS:
+        if not path.is_file():
+            errors.append(f"missing playbook {path.relative_to(ROOT)}")
+            continue
+        text = path.read_text()
+        for heading in required_headings:
+            if heading not in text:
+                errors.append(f"{path.name}: missing {heading} section")
+        if len(text.strip()) < 400:
+            errors.append(f"{path.name}: playbook looks too short")
+    return errors
+
+
 def run_pack_tests() -> list[str]:
     errors: list[str] = []
     for script in PACK_TESTS:
@@ -387,6 +408,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAIL atlas: {err}", file=sys.stderr)
         return 1
     print("ok ATLAS coverage (every detection mapped)")
+
+    playbook_errors = check_playbooks()
+    if playbook_errors:
+        for err in playbook_errors:
+            print(f"FAIL playbook: {err}", file=sys.stderr)
+        return 1
+    print(f"ok {len(PLAYBOOKS)} response playbooks")
 
     if not args.skip_pack_tests:
         pack_errors = run_pack_tests()

@@ -17,8 +17,9 @@ Schema freeze is done: **`aiwall.audit.v1`** JSON Lines from AIWall.
 - [loki/](loki/) — LogQL query pack (secret / policy / cost / daily-limit + triage)
 - [validation/](validation/) — sample corpus, expected hits, `validate_rules.py` (CI)
 - [docs/coverage-matrix.md](docs/coverage-matrix.md) — MITRE ATLAS mapping for every detection
+- [playbooks/](playbooks/) — triage/response for secret leak, child safety, agent actions
 
-Still ahead: playbooks, detection roadmap.
+Still ahead: detection roadmap doc for new operators.
 
 ## Purpose
 
@@ -62,8 +63,13 @@ AIWall-detections/
 │   ├── queries.json
 │   ├── tests/
 │   └── README.md
+├── playbooks/
+│   ├── secret-leak-detected.md
+│   ├── child-safety-block.md
+│   ├── suspicious-agent-action.md
+│   └── README.md
 ├── requirements.txt
-└── (playbooks / detection-roadmap — coming next)
+└── (detection-roadmap — coming next)
 ```
 
 ## Relationship to AIWall

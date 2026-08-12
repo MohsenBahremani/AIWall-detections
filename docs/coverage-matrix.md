@@ -49,3 +49,11 @@ These ATLAS techniques are **not** covered by current Community detections (cand
 1. Add or change a detection → update `atlas-mapping.json` (every entry needs `atlas` with ≥1 id).
 2. Run `python3 validation/validate_rules.py`.
 3. Refresh this markdown table if the JSON changed (keep them in sync; CI checks JSON completeness, not the markdown wording).
+
+## Response playbooks
+
+| Event | Playbook |
+|---|---|
+| Secret leak / redact | [playbooks/secret-leak-detected.md](../playbooks/secret-leak-detected.md) |
+| Child / category block | [playbooks/child-safety-block.md](../playbooks/child-safety-block.md) |
+| Suspicious agent action | [playbooks/suspicious-agent-action.md](../playbooks/suspicious-agent-action.md) |
