@@ -7,7 +7,7 @@ They mirror the Wazuh alerts in [`../wazuh/rules/aiwall_rules.xml`](../wazuh/rul
 |---|---|---|
 | [`rules/aiwall_secret_leak_blocked.yml`](rules/aiwall_secret_leak_blocked.yml) | 100210 | `block` + `secret-detected` |
 | [`rules/aiwall_policy_block.yml`](rules/aiwall_policy_block.yml) | 100211 | `block` + `category-blocked` |
-| [`rules/aiwall_cost_threshold.yml`](rules/aiwall_cost_threshold.yml) | 100212 | `block` + `cost-threshold` |
+| [`rules/aiwall_cost_threshold.yml`](rules/aiwall_cost_threshold.yml) | 100212 | `block` + `cost-threshold` or `cost-budget` |
 | [`rules/aiwall_daily_limit.yml`](rules/aiwall_daily_limit.yml) | 100213 | `block` + `daily-limit` |
 
 ## Validate / convert

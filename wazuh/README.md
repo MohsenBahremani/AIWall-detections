@@ -24,7 +24,7 @@ File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
 | `100200` / `100201` | 0 | Parent: any AIWall audit event (jsonl / syslog) |
 | `100210` | 12 | `decision=block` + `reason=secret-detected` |
 | `100211` | 10 | `decision=block` + `reason=category-blocked` |
-| `100212` | 10 | `decision=block` + `reason=cost-threshold` |
+| `100212` | 10 | `decision=block` + `reason=cost-threshold` or `cost-budget` |
 | `100213` | 10 | `decision=block` + `reason=daily-limit` |
 
 ## Install

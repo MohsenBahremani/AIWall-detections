@@ -22,6 +22,12 @@
       "loki_query_ids": ["aiwall_cost_threshold", "aiwall_all_blocks"]
     },
     {
+      "request_id": "req-cost-002",
+      "wazuh_rule_id": 100212,
+      "sigma_rule": "aiwall_cost_threshold",
+      "loki_query_ids": ["aiwall_cost_threshold", "aiwall_all_blocks"]
+    },
+    {
       "request_id": "req-limit-001",
       "wazuh_rule_id": 100213,
       "sigma_rule": "aiwall_daily_limit",

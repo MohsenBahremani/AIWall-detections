@@ -9,7 +9,7 @@ Pack file: [`queries.json`](queries.json)
 |---|---|---|
 | `aiwall_secret_leak_blocked` | `block` + `secret-detected` (Wazuh 100210) | `req-secret-001` |
 | `aiwall_policy_block` | `block` + `category-blocked` (100211) | `req-policy-001` |
-| `aiwall_cost_threshold` | `block` + `cost-threshold` (100212) | `req-cost-001` |
+| `aiwall_cost_threshold` | `block` + `cost-threshold` or `cost-budget` (100212) | `req-cost-001`, `req-cost-002` |
 | `aiwall_daily_limit` | `block` + `daily-limit` (100213) | `req-limit-001` |
 | `aiwall_all_blocks` | all `decision=block` | five block samples |
 | `aiwall_agent_approval_denied` | `block` + `approval-denied` | `req-agent-001` |

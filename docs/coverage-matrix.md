@@ -12,7 +12,7 @@ OWASP LLM Top 10 column is informational (developer risk lens). ATT&CK IDs are o
 |---|---|---|---|---|---|---|
 | Secret leak blocked | 100210 | `aiwall_secret_leak_blocked` | `aiwall_secret_leak_blocked` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | AML.T0055 Unsecured Credentials | LLM02 |
 | Content policy block | 100211 | `aiwall_policy_block` | `aiwall_policy_block` | [AML.T0048](https://atlas.mitre.org/) External Harms | — | LLM05 |
-| Cost threshold block | 100212 | `aiwall_cost_threshold` | `aiwall_cost_threshold` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | — | LLM10 |
+| Cost control block | 100212 | `aiwall_cost_threshold` | `aiwall_cost_threshold` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | — | LLM10 |
 | Daily usage limit | 100213 | `aiwall_daily_limit` | `aiwall_daily_limit` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | AML.T0046 Spamming ML System with Chaff Data | LLM10 |
 | Agent approval denied | — | — | `aiwall_agent_approval_denied` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | AML.T0053 LLM Plugin Compromise | LLM06 |
 | Secret redacted | — | — | `aiwall_secret_redacted` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | — | LLM02 |

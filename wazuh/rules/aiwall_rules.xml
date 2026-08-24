@@ -38,12 +38,16 @@
     <group>aiwall_policy_block,</group>
   </rule>
 
-  <!-- Estimated cost above policy threshold (ATLAS AML.T0034) -->
+  <!--
+    Cost controls (ATLAS AML.T0034). AIWall emits two distinct reasons:
+      cost-threshold  a single request over a `when: estimated_cost > N` policy
+      cost-budget     a rolling day/week/month spend cap from a budget checker
+  -->
   <rule id="100212" level="10">
     <if_sid>100200,100201</if_sid>
     <field name="decision">^block$</field>
-    <field name="reason">^cost-threshold$</field>
-    <description>AIWall blocked a request over the cost threshold. ATLAS AML.T0034.</description>
+    <field name="reason">^(cost-threshold|cost-budget)$</field>
+    <description>AIWall blocked a request over a cost control. ATLAS AML.T0034.</description>
     <group>aiwall_cost_threshold,</group>
   </rule>
 

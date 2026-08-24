@@ -13,21 +13,26 @@ ROOT = Path(__file__).resolve().parents[2]
 RULES_DIR = ROOT / "sigma" / "rules"
 SAMPLE_JSONL = ROOT / "validation" / "samples" / "aiwall.audit.v1.sample.jsonl"
 
-# filename stem -> expected sample request_id that should match
-EXPECTED_HITS: dict[str, str] = {
-    "aiwall_secret_leak_blocked": "req-secret-001",
-    "aiwall_policy_block": "req-policy-001",
-    "aiwall_cost_threshold": "req-cost-001",
-    "aiwall_daily_limit": "req-limit-001",
+# filename stem -> expected sample request_ids that should match
+EXPECTED_HITS: dict[str, set[str]] = {
+    "aiwall_secret_leak_blocked": {"req-secret-001"},
+    "aiwall_policy_block": {"req-policy-001"},
+    "aiwall_cost_threshold": {"req-cost-001", "req-cost-002"},
+    "aiwall_daily_limit": {"req-limit-001"},
 }
 
 
+def _value_matches(actual, expected) -> bool:
+    """A list of expected values means "any of", matching Sigma list semantics."""
+    if isinstance(expected, (list, tuple)):
+        return any(str(actual) == str(option) for option in expected)
+    return str(actual) == str(expected)
+
+
 def _event_matches_selection(event: dict, selection: dict) -> bool:
-    for key, expected in selection.items():
-        actual = event.get(key)
-        if str(actual) != str(expected):
-            return False
-    return True
+    return all(
+        _value_matches(event.get(key), expected) for key, expected in selection.items()
+    )
 
 
 def main() -> int:
@@ -89,39 +94,31 @@ def main() -> int:
 
         raw = yaml.safe_load(path.read_text())
         selection = raw["detection"]["selection"]
-        expected_id = EXPECTED_HITS.get(stem)
-        if expected_id is None:
+        expected_ids = EXPECTED_HITS.get(stem)
+        if expected_ids is None:
             print(f"FAIL {path.name}: no EXPECTED_HITS entry", file=sys.stderr)
             errors += 1
             continue
-        target = events.get(expected_id)
-        if target is None:
-            print(f"FAIL {path.name}: sample {expected_id} missing", file=sys.stderr)
-            errors += 1
-            continue
-        if not _event_matches_selection(target, selection):
-            print(
-                f"FAIL {path.name}: selection does not match sample {expected_id}",
-                file=sys.stderr,
-            )
+        missing = sorted(rid for rid in expected_ids if rid not in events)
+        if missing:
+            print(f"FAIL {path.name}: samples {missing} missing", file=sys.stderr)
             errors += 1
             continue
 
-        # Non-target samples should not match this selection.
-        false_hits = [
+        hits = {
             rid
             for rid, event in events.items()
-            if rid != expected_id and _event_matches_selection(event, selection)
-        ]
-        if false_hits:
+            if _event_matches_selection(event, selection)
+        }
+        if hits != expected_ids:
             print(
-                f"FAIL {path.name}: unexpected matches {false_hits}",
+                f"FAIL {path.name}: expected {sorted(expected_ids)}, got {sorted(hits)}",
                 file=sys.stderr,
             )
             errors += 1
             continue
 
-        print(f"ok {path.name}: Lucene={queries[0]!r} hit={expected_id}")
+        print(f"ok {path.name}: Lucene={queries[0]!r} hits={sorted(hits)}")
 
     if errors:
         print(f"FAILED: {errors} rule(s)", file=sys.stderr)

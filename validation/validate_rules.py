@@ -123,18 +123,23 @@ def _load_sigma_selections() -> dict[str, dict]:
     return out
 
 
+def _value_matches(actual, expected) -> bool:
+    """A list of expected values means "any of", matching Sigma list semantics."""
+    if isinstance(expected, (list, tuple)):
+        return any(str(actual) == str(option) for option in expected)
+    return str(actual) == str(expected)
+
+
 def _sigma_matches(selection: dict, event: dict) -> bool:
-    for key, expected in selection.items():
-        if str(event.get(key)) != str(expected):
-            return False
-    return True
+    return all(
+        _value_matches(event.get(key), expected) for key, expected in selection.items()
+    )
 
 
 def _loki_matches(filters: dict, event: dict) -> bool:
-    for key, expected in filters.items():
-        if str(event.get(key)) != str(expected):
-            return False
-    return True
+    return all(
+        _value_matches(event.get(key), expected) for key, expected in filters.items()
+    )
 
 
 def check_corpus(events: list[dict]) -> list[str]:

@@ -20,21 +20,32 @@ _FILTER_EQ = re.compile(
 )
 
 
+def _value_matches(actual, expected) -> bool:
+    """A list of expected values means "any of" (LogQL `=~` alternation)."""
+    if isinstance(expected, (list, tuple)):
+        return any(str(actual) == str(option) for option in expected)
+    return str(actual) == str(expected)
+
+
 def _event_matches(event: dict, filters: dict) -> bool:
-    for key, expected in filters.items():
-        actual = event.get(key)
-        if str(actual) != str(expected):
-            return False
-    return True
+    return all(
+        _value_matches(event.get(key), expected) for key, expected in filters.items()
+    )
 
 
 def _logql_declares_filters(logql: str, filters: dict) -> bool:
-    """Ensure the published LogQL string encodes the same equality filters."""
+    """Ensure the published LogQL string encodes the same filters."""
     if "| json" not in logql:
         return False
     declared = {m.group("field"): m.group("value") for m in _FILTER_EQ.finditer(logql)}
-    # schema may appear once; all filters must be present as | field="value"
     for key, value in filters.items():
+        if isinstance(value, (list, tuple)):
+            # A list filter must be published as a regex alternation covering
+            # exactly those values, in order: field=~"a|b".
+            needle = f'{key}=~"{"|".join(str(v) for v in value)}"'
+            if needle not in logql:
+                return False
+            continue
         if declared.get(key) != str(value):
             # Also accept label-style after json pipeline without capture miss:
             needle = f'{key}="{value}"'

@@ -33,17 +33,17 @@
     },
     {
       "id": "aiwall_cost_threshold",
-      "title": "Cost threshold block",
-      "description": "Mirrors Wazuh 100212 / Sigma aiwall_cost_threshold.",
+      "title": "Cost control block",
+      "description": "Mirrors Wazuh 100212 / Sigma aiwall_cost_threshold. Covers both the per-request cost-threshold policy and rolling cost-budget caps.",
       "wazuh_rule_id": 100212,
       "atlas_ids": ["AML.T0034"],
-      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"cost-threshold\"",
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=~\"cost-threshold|cost-budget\"",
       "filters": {
         "schema": "aiwall.audit.v1",
         "decision": "block",
-        "reason": "cost-threshold"
+        "reason": ["cost-threshold", "cost-budget"]
       },
-      "expect_request_ids": ["req-cost-001"]
+      "expect_request_ids": ["req-cost-001", "req-cost-002"]
     },
     {
       "id": "aiwall_daily_limit",
@@ -72,6 +72,7 @@
         "req-secret-001",
         "req-policy-001",
         "req-cost-001",
+        "req-cost-002",
         "req-limit-001",
         "req-agent-001"
       ]
