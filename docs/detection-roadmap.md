@@ -29,10 +29,10 @@ Prioritized for Community follow-ups (issue-sized):
 
 ## Alignment with AIWall Red Team (Phase 7)
 
-When [AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) publishes attack catalogs and campaigns:
+[AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) already ships a 14-technique attack catalog, campaign runners, a must-block regression suite, and baseline/retest reports. The remaining work is on this side — turning those campaign outcomes into detection coverage:
 
-- Add sample JSONL lines for each successful control hit.
-- Extend `expected_hits.json` and ATLAS gaps listed in `docs/coverage-matrix.md`.
+- Add sample JSONL lines for each control hit the campaigns produce.
+- Extend `expected_hits.json` and close the ATLAS gaps listed in `docs/coverage-matrix.md`, particularly the prompt-injection and agent-action techniques the catalog exercises but this repo does not yet alert on.
 - Prefer regression: campaign → expected audit reason → detection fire.
 
 ## How to propose a new detection

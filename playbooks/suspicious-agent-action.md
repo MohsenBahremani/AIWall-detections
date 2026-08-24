@@ -4,7 +4,7 @@
 
 | Signal | Value |
 |---|---|
-| Audit `decision` | `warn`, `block`, or `block` with approval denial |
+| Audit `decision` | `warn`, or `block` — either straight from a guardrail band or after an approval denial |
 | Audit `reason` | e.g. `shell risk …`, `approval-denied`, `sensitive-file-access:…` |
 | Audit `matched_rule_ids` | e.g. `rm-rf-root`, `sudo`, `curl-pipe-shell` |
 | Audit `policy_id` | e.g. `agent-shell-require-approval`, `agent-shell-warn` |

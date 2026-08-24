@@ -35,7 +35,7 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 
 ## Gaps (honest)
 
-These ATLAS techniques are **not** covered by current Community detections (candidates for later packs / Phase 7 red-team):
+These ATLAS techniques are **not** covered by current Community detections. AIWall-redteam already exercises several of them, so its campaign output is the natural source of sample lines for closing these gaps:
 
 | ATLAS ID | Name | Gap |
 |---|---|---|

@@ -68,10 +68,10 @@ What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.
 
 | Content | Description |
 |---|---|
-| **Wazuh** | Decoders + rules 100210–100213 (secret, category, cost, daily-limit) |
+| **Wazuh** | Decoders + parent rules 100200/100201 (level 0) and alert rules 100210–100213 (secret, category, cost, daily-limit) |
 | **Sigma** | Mirrors of those four alerts (Lucene-convertible) |
 | **Grafana** | Overview dashboard (decisions, cost, models, providers) |
-| **Loki** | LogQL pack for the same alerts + agent/redact/error triage |
+| **Loki** | LogQL pack for the same four alerts, plus `aiwall_all_blocks`, `aiwall_agent_approval_denied`, `aiwall_secret_redacted`, and `aiwall_upstream_error` |
 | **Validation** | Sample corpus, expected hits, CI harness |
 | **Playbooks** | Triage and response for common events |
 | **ATLAS** | Technique coverage matrix |
@@ -80,7 +80,8 @@ What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.
 
 ```text
 AIWall-detections/
-├── docs/           data-sources, ATLAS matrix, detection-roadmap
+├── .github/        validate.yml CI workflow
+├── docs/           data-sources, coverage-matrix, atlas-mapping.json, detection-roadmap
 ├── validation/     samples, expected_hits, validate_rules.py
 ├── wazuh/          decoders, rules, tests
 ├── sigma/          rules, tests

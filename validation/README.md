@@ -8,6 +8,8 @@ Canonical sample corpus and offline checks for AIWall-detections.
 | [`expected_hits.json`](expected_hits.json) | Per-`request_id` expectations for Wazuh / Sigma / Loki |
 | [`validate_rules.py`](validate_rules.py) | CI entrypoint — corpus + hits matrix + pack tests |
 
+`validate_rules.py` also checks that every playbook referenced from the README exists, that the ATLAS map in `docs/atlas-mapping.json` covers each detection, and that the README and roadmap still mention the rule ids they claim to ship.
+
 ## Run
 
 From the repo root:

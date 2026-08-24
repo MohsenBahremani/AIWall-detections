@@ -7,7 +7,7 @@
 | Audit `decision` | `block` |
 | Audit `reason` | `category-blocked` |
 | Audit `categories` | e.g. `sexual`, plus policy-defined sets (`explicit`, `unsafe`, `violence`) |
-| Audit `policy_id` | e.g. `child-block-explicit`, `block-child-categories` |
+| Audit `policy_id` | The policy `name` from config — `block-child-categories` for the shipped `child` preset |
 | Wazuh | Rule **100211** |
 | Sigma / Loki | `aiwall_policy_block` |
 | ATLAS | [AML.T0048](https://atlas.mitre.org/) External Harms |
@@ -18,7 +18,7 @@ Upstream behavior: [AIWall family-mode.md](https://github.com/MohsenBah/AIWall/b
 ## Triage (5–15 min)
 
 1. Pull the audit row (`request_id`, `user_id`, `categories`, `policy_id`, `timestamp`). Raw prompts are **not** in `aiwall.audit.v1` — use parent review / blocked UI if you need conversation context.
-2. Confirm the profile **role** is `child` (or whatever role the policy targets). Adult profiles should not match `user.role == "child"` rules unless you added custom policy.
+2. Confirm the profile **role** is `child` (or whatever role the policy targets). The audit export carries only `user_id`, not the role — `user.role` is policy-YAML syntax, so resolve the role by looking that `user_id` up in AIWall's profile admin. An adult profile should not be matching a child-scoped policy unless you added a custom rule.
 3. Decide what happened:
    - Curious / accidental ask from the child
    - Jailbreak-style attempt to bypass filters
