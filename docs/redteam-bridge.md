@@ -39,3 +39,15 @@ Preferred loop:
 2. Export `GET /events/export.jsonl`.
 3. Diff new hold reasons against this bridge; add sample lines + expected hits when a new stable reason appears.
 4. `python3 validation/validate_rules.py`.
+
+## Live export check
+
+From this repo (AIWall running on `:8080`):
+
+```bash
+./scripts/validate_export.sh
+# after a red-team regression run against the same lab:
+./scripts/validate_export.sh --with-regression --require-reasons secret-detected
+# or score a saved file:
+./scripts/validate_export.sh --file /tmp/aiwall.audit.jsonl --require-reasons secret-detected approval-denied
+```

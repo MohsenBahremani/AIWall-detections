@@ -14,6 +14,7 @@ Where AIWall-detections is going next, and what already ships for operators.
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
 | **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
 | **Alert routing** | ntfy / webhook examples by Wazuh rule id (`docs/alert-routing.md`) |
+| **E2E lab script** | `scripts/validate_export.sh` (+ `check_export_hits.py`) |
 | **Playbooks** | Secret leak, child safety, suspicious agent action |
 | **CI** | `validation/validate_rules.py` on push/PR |
 
@@ -23,10 +24,22 @@ Follow the [README quick start](README.md#quick-start-load-rules-against-aiwall-
 
 Prioritized for Community follow-ups (issue-sized):
 
-1. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
-2. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
+1. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
 
 Blocked on core (see [`blocked-detections.md`](blocked-detections.md)): prompt-injection / jailbreak reasons; model-extraction / rate metrics.
+
+## End-to-end lab check
+
+```bash
+# Sample corpus + packs
+python3 validation/validate_rules.py
+
+# Live export (optional: --with-regression if ../AIWall-redteam is present)
+./scripts/validate_export.sh
+./scripts/validate_export.sh --file validation/samples/aiwall.audit.v1.sample.jsonl \
+  --require-reasons secret-detected approval-denied
+```
+
 
 ## Alignment with AIWall Red Team
 

@@ -51,6 +51,9 @@ cd grafana && docker compose up -d
 ```bash
 pip install -r requirements.txt
 python3 validation/validate_rules.py
+# Optional lab loop: export live JSONL and score Wazuh hits
+./scripts/validate_export.sh --file validation/samples/aiwall.audit.v1.sample.jsonl \
+  --require-reasons secret-detected
 ```
 
 ### 3. Triage hits
