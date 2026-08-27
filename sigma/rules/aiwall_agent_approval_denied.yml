@@ -1,0 +1,29 @@
+title: AIWall Agent Approval Denied
+id: 7c3e2a91-4b8f-4d2e-9e1a-2f6b8c0d4a15
+status: experimental
+description: |
+  Detects when AIWall blocks an agent shell/file/tool action because a human
+  denied (or timed out) approval (reason=approval-denied). Mirrors Wazuh rule
+  100214.
+references:
+  - https://github.com/MohsenBah/AIWall-detections
+  - https://github.com/MohsenBah/AIWall/blob/main/docs/agent-guardrails.md
+author: AIWall
+date: 2026-08-26
+tags:
+  - attack.execution
+  - atlas.aml.t0050
+  - atlas.aml.t0053
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason: 'approval-denied'
+  condition: selection
+falsepositives:
+  - Intentional approval-deny drills in a lab
+level: high

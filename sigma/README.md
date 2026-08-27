@@ -9,6 +9,8 @@ They mirror the Wazuh alerts in [`../wazuh/rules/aiwall_rules.xml`](../wazuh/rul
 | [`rules/aiwall_policy_block.yml`](rules/aiwall_policy_block.yml) | 100211 | `block` + `category-blocked` |
 | [`rules/aiwall_cost_threshold.yml`](rules/aiwall_cost_threshold.yml) | 100212 | `block` + `cost-threshold` or `cost-budget` |
 | [`rules/aiwall_daily_limit.yml`](rules/aiwall_daily_limit.yml) | 100213 | `block` + `daily-limit` |
+| [`rules/aiwall_agent_approval_denied.yml`](rules/aiwall_agent_approval_denied.yml) | 100214 | `block` + `approval-denied` |
+| [`rules/aiwall_agent_shell_risk.yml`](rules/aiwall_agent_shell_risk.yml) | 100215 | `warn` + `reason` starts with `shell risk` |
 
 ## Validate / convert
 

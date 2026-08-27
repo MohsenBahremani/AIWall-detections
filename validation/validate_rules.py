@@ -124,16 +124,39 @@ def _load_sigma_selections() -> dict[str, dict]:
 
 
 def _value_matches(actual, expected) -> bool:
-    """A list of expected values means "any of", matching Sigma list semantics."""
+    """Match filter values. Lists mean "any of"; dicts support startswith/regex."""
+    if isinstance(expected, dict):
+        text = "" if actual is None else str(actual)
+        if "startswith" in expected:
+            return text.startswith(str(expected["startswith"]))
+        if "regex" in expected:
+            return re.search(str(expected["regex"]), text) is not None
+        raise AssertionError(f"unsupported filter dict keys: {sorted(expected)}")
     if isinstance(expected, (list, tuple)):
         return any(str(actual) == str(option) for option in expected)
     return str(actual) == str(expected)
 
 
 def _sigma_matches(selection: dict, event: dict) -> bool:
-    return all(
-        _value_matches(event.get(key), expected) for key, expected in selection.items()
-    )
+    """Match a Sigma detection.selection, including field|startswith modifiers."""
+    for key, expected in selection.items():
+        if "|" in key:
+            field, _, modifier = key.partition("|")
+            text = "" if event.get(field) is None else str(event.get(field))
+            if modifier == "startswith":
+                if not text.startswith(str(expected)):
+                    return False
+            elif modifier == "contains":
+                if str(expected) not in text:
+                    return False
+            elif modifier in ("re", "regex"):
+                if re.search(str(expected), text) is None:
+                    return False
+            else:
+                raise AssertionError(f"unsupported Sigma modifier: {modifier}")
+        elif not _value_matches(event.get(key), expected):
+            return False
+    return True
 
 
 def _loki_matches(filters: dict, event: dict) -> bool:

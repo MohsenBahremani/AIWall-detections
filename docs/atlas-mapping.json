@@ -80,8 +80,8 @@
     {
       "id": "aiwall_agent_approval_denied",
       "title": "Agent approval denied",
-      "wazuh_rule_id": null,
-      "sigma_rule": null,
+      "wazuh_rule_id": 100214,
+      "sigma_rule": "aiwall_agent_approval_denied",
       "loki_query_ids": ["aiwall_agent_approval_denied"],
       "atlas": [
         {
@@ -93,6 +93,22 @@
           "id": "AML.T0053",
           "name": "LLM Plugin Compromise",
           "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM06"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_agent_shell_risk",
+      "title": "Agent shell risk warn",
+      "wazuh_rule_id": 100215,
+      "sigma_rule": "aiwall_agent_shell_risk",
+      "loki_query_ids": ["aiwall_agent_shell_risk"],
+      "atlas": [
+        {
+          "id": "AML.T0050",
+          "name": "Command and Scripting Interpreter",
+          "primary": true
         }
       ],
       "owasp_llm": ["LLM06"],

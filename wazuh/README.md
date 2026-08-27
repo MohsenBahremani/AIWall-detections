@@ -26,6 +26,8 @@ File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
 | `100211` | 10 | `decision=block` + `reason=category-blocked` |
 | `100212` | 10 | `decision=block` + `reason=cost-threshold` or `cost-budget` |
 | `100213` | 10 | `decision=block` + `reason=daily-limit` |
+| `100214` | 12 | `decision=block` + `reason=approval-denied` |
+| `100215` | 7 | `decision=warn` + `reason` starts with `shell risk` |
 
 ## Install
 
@@ -54,7 +56,7 @@ With a Wazuh manager:
 sudo /var/ossec/bin/wazuh-logtest < validation/samples/aiwall.audit.v1.sample.jsonl
 ```
 
-Expect decoder `aiwall-audit` and rule ids `100210`–`100213` on the matching sample lines.
+Expect decoder `aiwall-audit` and rule ids `100210`–`100215` on the matching sample lines.
 
 Without Wazuh, offline checks:
 

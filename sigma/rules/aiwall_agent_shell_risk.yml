@@ -1,0 +1,28 @@
+title: AIWall Agent Shell Risk Warn
+id: a1d4e8f2-6c90-4b3a-8f17-5e2d9c1b7a44
+status: experimental
+description: |
+  Detects when AIWall warns on an agent shell command whose risk score sits in
+  the warn band (reason starts with "shell risk"). Mirrors Wazuh rule 100215.
+  Score and level text after the prefix vary per request.
+references:
+  - https://github.com/MohsenBah/AIWall-detections
+  - https://github.com/MohsenBah/AIWall/blob/main/docs/agent-guardrails.md
+author: AIWall
+date: 2026-08-26
+tags:
+  - attack.execution
+  - atlas.aml.t0050
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'warn'
+    reason|startswith: 'shell risk'
+  condition: selection
+falsepositives:
+  - Legitimate admin shell workflows that intentionally trip the warn band
+level: medium

@@ -35,8 +35,8 @@
     },
     {
       "request_id": "req-agent-001",
-      "wazuh_rule_id": null,
-      "sigma_rule": null,
+      "wazuh_rule_id": 100214,
+      "sigma_rule": "aiwall_agent_approval_denied",
       "loki_query_ids": ["aiwall_agent_approval_denied", "aiwall_all_blocks"]
     },
     {
@@ -59,9 +59,9 @@
     },
     {
       "request_id": "req-warn-001",
-      "wazuh_rule_id": null,
-      "sigma_rule": null,
-      "loki_query_ids": []
+      "wazuh_rule_id": 100215,
+      "sigma_rule": "aiwall_agent_shell_risk",
+      "loki_query_ids": ["aiwall_agent_shell_risk"]
     }
   ]
 }

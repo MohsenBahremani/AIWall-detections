@@ -80,7 +80,8 @@
     {
       "id": "aiwall_agent_approval_denied",
       "title": "Agent approval denied",
-      "description": "Agent shell/file action blocked after approval denial.",
+      "description": "Agent shell/file action blocked after approval denial. Mirrors Wazuh 100214 / Sigma aiwall_agent_approval_denied.",
+      "wazuh_rule_id": 100214,
       "atlas_ids": ["AML.T0050", "AML.T0053"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"approval-denied\"",
       "filters": {
@@ -89,6 +90,20 @@
         "reason": "approval-denied"
       },
       "expect_request_ids": ["req-agent-001"]
+    },
+    {
+      "id": "aiwall_agent_shell_risk",
+      "title": "Agent shell risk warn",
+      "description": "Agent shell command in the warn band (reason starts with shell risk). Mirrors Wazuh 100215 / Sigma aiwall_agent_shell_risk.",
+      "wazuh_rule_id": 100215,
+      "atlas_ids": ["AML.T0050"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"warn\" | reason=~\"shell risk.*\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "warn",
+        "reason": {"startswith": "shell risk"}
+      },
+      "expect_request_ids": ["req-warn-001"]
     },
     {
       "id": "aiwall_secret_redacted",

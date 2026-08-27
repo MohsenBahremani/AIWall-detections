@@ -21,7 +21,14 @@ _FILTER_EQ = re.compile(
 
 
 def _value_matches(actual, expected) -> bool:
-    """A list of expected values means "any of" (LogQL `=~` alternation)."""
+    """Lists mean any-of; dicts support startswith / regex."""
+    if isinstance(expected, dict):
+        text = "" if actual is None else str(actual)
+        if "startswith" in expected:
+            return text.startswith(str(expected["startswith"]))
+        if "regex" in expected:
+            return re.search(str(expected["regex"]), text) is not None
+        raise AssertionError(f"unsupported filter dict keys: {sorted(expected)}")
     if isinstance(expected, (list, tuple)):
         return any(str(actual) == str(option) for option in expected)
     return str(actual) == str(expected)
@@ -39,6 +46,17 @@ def _logql_declares_filters(logql: str, filters: dict) -> bool:
         return False
     declared = {m.group("field"): m.group("value") for m in _FILTER_EQ.finditer(logql)}
     for key, value in filters.items():
+        if isinstance(value, dict) and "startswith" in value:
+            prefix = str(value["startswith"])
+            needle = f'{key}=~"{prefix}.*"'
+            if needle not in logql:
+                return False
+            continue
+        if isinstance(value, dict) and "regex" in value:
+            needle = f'{key}=~"{value["regex"]}"'
+            if needle not in logql:
+                return False
+            continue
         if isinstance(value, (list, tuple)):
             # A list filter must be published as a regex alternation covering
             # exactly those values, in order: field=~"a|b".

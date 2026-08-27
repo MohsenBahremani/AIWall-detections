@@ -23,6 +23,8 @@ EXPECTED: dict[str, int] = {
     "req-cost-001": 100212,
     "req-cost-002": 100212,
     "req-limit-001": 100213,
+    "req-agent-001": 100214,
+    "req-warn-001": 100215,
 }
 
 
@@ -67,8 +69,8 @@ def _load_alert_rules(path: Path) -> list[AlertRule]:
                     description=description,
                 )
             )
-    if len(rules) < 4:
-        raise AssertionError(f"expected at least 4 alert rules, found {len(rules)}")
+    if len(rules) < 6:
+        raise AssertionError(f"expected at least 6 alert rules, found {len(rules)}")
     return rules
 
 
@@ -126,7 +128,7 @@ def main() -> int:
             )
             errors += 1
         else:
-            print(f"ok {request_id} -> no Phase 6.3 alert (as expected)")
+            print(f"ok {request_id} -> no alert rule (as expected)")
 
     if errors:
         print(f"FAILED: {errors} mismatch(es)", file=sys.stderr)

@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -19,6 +20,8 @@ EXPECTED_HITS: dict[str, set[str]] = {
     "aiwall_policy_block": {"req-policy-001"},
     "aiwall_cost_threshold": {"req-cost-001", "req-cost-002"},
     "aiwall_daily_limit": {"req-limit-001"},
+    "aiwall_agent_approval_denied": {"req-agent-001"},
+    "aiwall_agent_shell_risk": {"req-warn-001"},
 }
 
 
@@ -30,9 +33,25 @@ def _value_matches(actual, expected) -> bool:
 
 
 def _event_matches_selection(event: dict, selection: dict) -> bool:
-    return all(
-        _value_matches(event.get(key), expected) for key, expected in selection.items()
-    )
+    """Match detection.selection, including field|startswith / contains / re."""
+    for key, expected in selection.items():
+        if "|" in key:
+            field, _, modifier = key.partition("|")
+            text = "" if event.get(field) is None else str(event.get(field))
+            if modifier == "startswith":
+                if not text.startswith(str(expected)):
+                    return False
+            elif modifier == "contains":
+                if str(expected) not in text:
+                    return False
+            elif modifier in ("re", "regex"):
+                if re.search(str(expected), text) is None:
+                    return False
+            else:
+                raise AssertionError(f"unsupported Sigma modifier: {modifier}")
+        elif not _value_matches(event.get(key), expected):
+            return False
+    return True
 
 
 def main() -> int:

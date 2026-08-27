@@ -14,7 +14,8 @@ OWASP LLM Top 10 column is informational (developer risk lens). ATT&CK IDs are o
 | Content policy block | 100211 | `aiwall_policy_block` | `aiwall_policy_block` | [AML.T0048](https://atlas.mitre.org/) External Harms | — | LLM05 |
 | Cost control block | 100212 | `aiwall_cost_threshold` | `aiwall_cost_threshold` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | — | LLM10 |
 | Daily usage limit | 100213 | `aiwall_daily_limit` | `aiwall_daily_limit` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | AML.T0046 Spamming ML System with Chaff Data | LLM10 |
-| Agent approval denied | — | — | `aiwall_agent_approval_denied` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | AML.T0053 LLM Plugin Compromise | LLM06 |
+| Agent approval denied | 100214 | `aiwall_agent_approval_denied` | `aiwall_agent_approval_denied` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | AML.T0053 LLM Plugin Compromise | LLM06 |
+| Agent shell risk warn | 100215 | `aiwall_agent_shell_risk` | `aiwall_agent_shell_risk` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | — | LLM06 |
 | Secret redacted | — | — | `aiwall_secret_redacted` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | — | LLM02 |
 | Upstream provider errors | — | — | `aiwall_upstream_error` | [AML.T0029](https://atlas.mitre.org/) Denial of ML Service | — | LLM10 |
 
@@ -29,7 +30,7 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 | **AML.T0048** | Category / family-mode blocks stop content that can cause external harm |
 | **AML.T0034** | Cost-threshold and daily-limit blocks stop abusive or runaway spend |
 | **AML.T0046** | Daily limits also blunt chaff / flood style usage |
-| **AML.T0050** | Agent shell / interpreter actions denied after approval failure |
+| **AML.T0050** | Agent shell / interpreter actions denied after approval failure, or warned in the shell-risk band |
 | **AML.T0053** | Agent tools/plugins are the execution surface being constrained |
 | **AML.T0029** | Upstream `decision=error` is an availability signal (dependency or resource failure), not proof of attack |
 
