@@ -9,7 +9,7 @@
       "category": "secret-exfiltration",
       "expected_reasons": ["secret-detected"],
       "sample_request_id": "req-secret-001",
-      "wazuh_rule_id": 100210,
+      "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
       "notes": "Must-block regression case; synthetic AWS key."
     },
@@ -19,7 +19,7 @@
       "expected_reasons": ["secret-detected", "secret-redacted"],
       "sample_request_id": "req-secret-001",
       "alternate_sample_request_ids": ["req-redact-001"],
-      "wazuh_rule_id": 100210,
+      "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
       "notes": "Block path shares secret-detected sample; redact path is req-redact-001 (Loki-only)."
     },
@@ -28,7 +28,7 @@
       "category": "secret-exfiltration",
       "expected_reasons": ["secret-detected", "secret-redacted"],
       "sample_request_id": "req-secret-001",
-      "wazuh_rule_id": 100210,
+      "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
       "notes": "Input secret still holds; output-only exfil remains a product gap."
     },
@@ -37,7 +37,7 @@
       "category": "unsafe-content",
       "expected_reasons": ["category-blocked"],
       "sample_request_id": "req-policy-001",
-      "wazuh_rule_id": 100211,
+      "wazuh_rule_id": 107211,
       "sigma_rule": "aiwall_policy_block",
       "notes": "Requires child_profile in live campaigns."
     },
@@ -46,7 +46,7 @@
       "category": "unsafe-content",
       "expected_reasons": ["category-blocked"],
       "sample_request_id": "req-policy-001",
-      "wazuh_rule_id": 100211,
+      "wazuh_rule_id": 107211,
       "sigma_rule": "aiwall_policy_block"
     },
     {
@@ -54,7 +54,7 @@
       "category": "cost-abuse",
       "expected_reasons": ["cost-threshold"],
       "sample_request_id": "req-cost-001",
-      "wazuh_rule_id": 100212,
+      "wazuh_rule_id": 107212,
       "sigma_rule": "aiwall_cost_threshold"
     },
     {
@@ -62,7 +62,7 @@
       "category": "cost-abuse",
       "expected_reasons": ["daily-limit"],
       "sample_request_id": "req-limit-001",
-      "wazuh_rule_id": 100213,
+      "wazuh_rule_id": 107213,
       "sigma_rule": "aiwall_daily_limit"
     },
     {
@@ -70,16 +70,16 @@
       "category": "cost-abuse",
       "expected_reasons": ["cost-budget"],
       "sample_request_id": "req-cost-002",
-      "wazuh_rule_id": 100212,
+      "wazuh_rule_id": 107216,
       "sigma_rule": "aiwall_cost_threshold",
-      "notes": "Rolling budget uses the same Wazuh/Sigma cost rule as cost-threshold."
+      "notes": "Rolling budget (cost-budget); Wazuh rule 107216, Sigma/Loki share aiwall_cost_threshold."
     },
     {
       "technique_id": "AT-01",
       "category": "agent-tool-abuse",
       "expected_reasons": ["approval-denied"],
       "sample_request_id": "req-agent-001",
-      "wazuh_rule_id": 100214,
+      "wazuh_rule_id": 107214,
       "sigma_rule": "aiwall_agent_approval_denied"
     },
     {
@@ -87,7 +87,7 @@
       "category": "agent-tool-abuse",
       "expected_reasons": ["shell risk"],
       "sample_request_id": "req-warn-001",
-      "wazuh_rule_id": 100215,
+      "wazuh_rule_id": 107215,
       "sigma_rule": "aiwall_agent_shell_risk",
       "notes": "Warn-band shell risk; reason prefix match."
     },
@@ -104,7 +104,7 @@
       "category": "prompt-injection",
       "expected_reasons": ["category-blocked"],
       "sample_request_id": "req-policy-001",
-      "wazuh_rule_id": 100211,
+      "wazuh_rule_id": 107211,
       "sigma_rule": "aiwall_policy_block",
       "notes": "Adjacent coverage only when classifiers fire category-blocked; not a dedicated jailbreak rule."
     },

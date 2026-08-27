@@ -3,7 +3,7 @@ id: 0914d47a-6dc1-4c23-9b67-b7841519cedf
 status: experimental
 description: |
   Detects when AIWall blocks a request because a profile hit its daily usage
-  limit (reason=daily-limit). Mirrors Wazuh rule 100213.
+  limit (reason=daily-limit). Mirrors Wazuh rule 107213.
 references:
   - https://github.com/MohsenBahremani/AIWall-detections
   - https://github.com/MohsenBahremani/AIWall/blob/main/docs/family-mode.md

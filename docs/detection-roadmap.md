@@ -8,7 +8,7 @@ Where AIWall-detections is going next, and what already ships for operators.
 |---|---|
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
-| **Wazuh** | Decoders + rules 100210–100215 (secret, category, cost, daily-limit, agent deny, shell-risk warn) |
+| **Wazuh** | Decoders + rules 107210–107215 (secret, category, cost, daily-limit, agent deny, shell-risk warn) |
 | **Sigma** | Six mirrors, Lucene-convertible |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |

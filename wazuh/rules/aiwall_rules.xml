@@ -2,24 +2,28 @@
   AIWall audit alert rules (schema aiwall.audit.v1)
   Requires: wazuh/decoders/aiwall_decoders.xml
   Install: copy to /var/ossec/etc/rules/ then restart wazuh-manager.
-  Custom id range 100200–100299 reserved for AIWall in this pack.
+  Custom id range 107200–107299 reserved for AIWall (avoids common community packs
+  such as prompt-injection at 100200 and medlabsec at 100300).
 -->
 
 <group name="aiwall,">
 
-  <rule id="100200" level="0">
-    <decoded_as>aiwall-audit</decoded_as>
-    <description>AIWall audit event.</description>
+  <!-- NDJSON via <log_format>json</log_format>: Wazuh uses the built-in "json" decoder, not aiwall-audit -->
+  <rule id="107200" level="0">
+    <decoded_as>json</decoded_as>
+    <field name="schema">^aiwall\.audit\.v1$</field>
+    <description>AIWall audit event (JSONL localfile).</description>
   </rule>
 
-  <rule id="100201" level="0">
+  <rule id="107201" level="0">
     <decoded_as>aiwall-audit-syslog-json</decoded_as>
+    <field name="schema">^aiwall\.audit\.v1$</field>
     <description>AIWall audit event (syslog).</description>
   </rule>
 
   <!-- Secret leak blocked before reaching a provider (ATLAS AML.T0057) -->
-  <rule id="100210" level="12">
-    <if_sid>100200,100201</if_sid>
+  <rule id="107210" level="12">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^block$</field>
     <field name="reason">^secret-detected$</field>
     <description>AIWall blocked a secret leak (reason=secret-detected). ATLAS AML.T0057.</description>
@@ -30,30 +34,35 @@
   </rule>
 
   <!-- Family / content policy block (ATLAS AML.T0048) -->
-  <rule id="100211" level="10">
-    <if_sid>100200,100201</if_sid>
+  <rule id="107211" level="10">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^block$</field>
     <field name="reason">^category-blocked$</field>
     <description>AIWall blocked a request by content policy (reason=category-blocked). ATLAS AML.T0048.</description>
     <group>aiwall_policy_block,</group>
   </rule>
 
-  <!--
-    Cost controls (ATLAS AML.T0034). AIWall emits two distinct reasons:
-      cost-threshold  a single request over a `when: estimated_cost > N` policy
-      cost-budget     a rolling day/week/month spend cap from a budget checker
-  -->
-  <rule id="100212" level="10">
-    <if_sid>100200,100201</if_sid>
+  <!-- Per-request cost policy (ATLAS AML.T0034) -->
+  <rule id="107212" level="10">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^block$</field>
-    <field name="reason">^(cost-threshold|cost-budget)$</field>
-    <description>AIWall blocked a request over a cost control. ATLAS AML.T0034.</description>
+    <field name="reason">^cost-threshold$</field>
+    <description>AIWall blocked a request over a per-request cost threshold. ATLAS AML.T0034.</description>
+    <group>aiwall_cost_threshold,</group>
+  </rule>
+
+  <!-- Rolling spend cap from a budget checker (ATLAS AML.T0034) -->
+  <rule id="107216" level="10">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^cost-budget$</field>
+    <description>AIWall blocked a request over a rolling cost budget. ATLAS AML.T0034.</description>
     <group>aiwall_cost_threshold,</group>
   </rule>
 
   <!-- Per-profile daily usage limit (ATLAS AML.T0034) -->
-  <rule id="100213" level="10">
-    <if_sid>100200,100201</if_sid>
+  <rule id="107213" level="10">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^block$</field>
     <field name="reason">^daily-limit$</field>
     <description>AIWall blocked a request that hit a daily usage limit. ATLAS AML.T0034.</description>
@@ -61,8 +70,8 @@
   </rule>
 
   <!-- Agent tool/shell action denied after human approval (ATLAS AML.T0050) -->
-  <rule id="100214" level="12">
-    <if_sid>100200,100201</if_sid>
+  <rule id="107214" level="12">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^block$</field>
     <field name="reason">^approval-denied$</field>
     <description>AIWall blocked an agent action after approval denial (reason=approval-denied). ATLAS AML.T0050.</description>
@@ -73,8 +82,8 @@
     Agent shell risk warn (ATLAS AML.T0050). AIWall reasons look like
     "shell risk 55 (medium)" — match the stable prefix, not the score.
   -->
-  <rule id="100215" level="7">
-    <if_sid>100200,100201</if_sid>
+  <rule id="107215" level="7">
+    <if_sid>107200,107201</if_sid>
     <field name="decision">^warn$</field>
     <field name="reason">^shell risk</field>
     <description>AIWall warned on a medium/high agent shell risk. ATLAS AML.T0050.</description>

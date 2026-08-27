@@ -3,7 +3,7 @@ id: a1d4e8f2-6c90-4b3a-8f17-5e2d9c1b7a44
 status: experimental
 description: |
   Detects when AIWall warns on an agent shell command whose risk score sits in
-  the warn band (reason starts with "shell risk"). Mirrors Wazuh rule 100215.
+  the warn band (reason starts with "shell risk"). Mirrors Wazuh rule 107215.
   Score and level text after the prefix vary per request.
 references:
   - https://github.com/MohsenBahremani/AIWall-detections

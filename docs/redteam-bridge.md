@@ -17,13 +17,13 @@ Machine-readable map: [`validation/redteam_bridge.json`](../validation/redteam_b
 
 | Technique | Sample | Wazuh | Sigma |
 |---|---|---|---|
-| SE-01 … SE-03 | `req-secret-001` (+ redact alt) | 100210 | `aiwall_secret_leak_blocked` |
-| UC-01, UC-02 | `req-policy-001` | 100211 | `aiwall_policy_block` |
-| CA-01 | `req-cost-001` | 100212 | `aiwall_cost_threshold` |
-| CA-03 | `req-cost-002` | 100212 | `aiwall_cost_threshold` |
-| CA-02 | `req-limit-001` | 100213 | `aiwall_daily_limit` |
-| AT-01 | `req-agent-001` | 100214 | `aiwall_agent_approval_denied` |
-| AT-03 | `req-warn-001` | 100215 | `aiwall_agent_shell_risk` |
+| SE-01 … SE-03 | `req-secret-001` (+ redact alt) | 107210 | `aiwall_secret_leak_blocked` |
+| UC-01, UC-02 | `req-policy-001` | 107211 | `aiwall_policy_block` |
+| CA-01 | `req-cost-001` | 107212 | `aiwall_cost_threshold` |
+| CA-03 | `req-cost-002` | 107216 | `aiwall_cost_threshold` |
+| CA-02 | `req-limit-001` | 107213 | `aiwall_daily_limit` |
+| AT-01 | `req-agent-001` | 107214 | `aiwall_agent_approval_denied` |
+| AT-03 | `req-warn-001` | 107215 | `aiwall_agent_shell_risk` |
 
 ## Gaps (need core or new samples)
 

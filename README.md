@@ -74,8 +74,8 @@ Blocked gaps (injection / rate): [docs/blocked-detections.md](docs/blocked-detec
 
 | Content | Description |
 |---|---|
-| **Wazuh** | Decoders + parent rules 100200/100201 (level 0) and alert rules 100210–100215 |
-| **Sigma** | Mirrors of the six alerts (Lucene-convertible) |
+| **Wazuh** | Decoders + parent rules 107200/107201 (level 0) and alert rules 107210–107216 |
+| **Sigma** | Mirrors of the alert rules (Lucene-convertible) |
 | **Grafana** | Overview dashboard (decisions, cost, models, providers) |
 | **Loki** | LogQL pack for alerts plus roll-ups / triage queries |
 | **Validation** | Sample corpus, expected hits, red-team bridge, CI harness |

@@ -6,7 +6,7 @@
 |---|---|
 | Audit `decision` | `block` (hard stop) or `redact` (masked then forwarded) |
 | Audit `reason` | `secret-detected` or `secret-redacted` |
-| Wazuh | Rule **100210** (`secret-detected` only) |
+| Wazuh | Rule **107210** (`secret-detected` only) |
 | Sigma / Loki | `aiwall_secret_leak_blocked` / `aiwall_secret_redacted` |
 | ATLAS | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage |
 | Sample | `req-secret-001`, `req-redact-001` |

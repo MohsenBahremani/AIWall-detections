@@ -4,7 +4,7 @@ status: experimental
 description: |
   Detects when AIWall blocks a request on a cost control. Two reasons qualify:
   cost-threshold (a single request over a `when: estimated_cost > N` policy)
-  and cost-budget (a rolling day/week/month spend cap). Mirrors Wazuh 100212.
+  and cost-budget (a rolling day/week/month spend cap). Mirrors Wazuh 107212.
 references:
   - https://github.com/MohsenBahremani/AIWall-detections
   - https://github.com/MohsenBahremani/AIWall/blob/main/docs/configuration.md

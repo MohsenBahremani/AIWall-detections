@@ -8,7 +8,7 @@
 | Audit `reason` | `category-blocked` |
 | Audit `categories` | e.g. `sexual`, plus policy-defined sets (`explicit`, `unsafe`, `violence`) |
 | Audit `policy_id` | The policy `name` from config — `block-child-categories` for the shipped `child` preset |
-| Wazuh | Rule **100211** |
+| Wazuh | Rule **107211** |
 | Sigma / Loki | `aiwall_policy_block` |
 | ATLAS | [AML.T0048](https://atlas.mitre.org/) External Harms |
 | Sample | `req-policy-001` |
@@ -54,5 +54,5 @@ Upstream behavior: [AIWall family-mode.md](https://github.com/MohsenBahremani/AI
 ## Related
 
 - Coverage: [docs/coverage-matrix.md](../docs/coverage-matrix.md)
-- Daily limit companion alert: Wazuh **100213** / Loki `aiwall_daily_limit`
+- Daily limit companion alert: Wazuh **107213** / Loki `aiwall_daily_limit`
 - Sibling playbooks: [secret-leak-detected.md](secret-leak-detected.md), [suspicious-agent-action.md](suspicious-agent-action.md)

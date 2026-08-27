@@ -6,8 +6,8 @@
     {
       "id": "aiwall_secret_leak_blocked",
       "title": "Secret leak blocked",
-      "description": "Mirrors Wazuh 100210 / Sigma aiwall_secret_leak_blocked.",
-      "wazuh_rule_id": 100210,
+      "description": "Mirrors Wazuh 107210 / Sigma aiwall_secret_leak_blocked.",
+      "wazuh_rule_id": 107210,
       "atlas_ids": ["AML.T0057", "AML.T0055"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"secret-detected\"",
       "filters": {
@@ -20,8 +20,8 @@
     {
       "id": "aiwall_policy_block",
       "title": "Content policy block",
-      "description": "Mirrors Wazuh 100211 / Sigma aiwall_policy_block.",
-      "wazuh_rule_id": 100211,
+      "description": "Mirrors Wazuh 107211 / Sigma aiwall_policy_block.",
+      "wazuh_rule_id": 107211,
       "atlas_ids": ["AML.T0048"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"category-blocked\"",
       "filters": {
@@ -34,8 +34,8 @@
     {
       "id": "aiwall_cost_threshold",
       "title": "Cost control block",
-      "description": "Mirrors Wazuh 100212 / Sigma aiwall_cost_threshold. Covers both the per-request cost-threshold policy and rolling cost-budget caps.",
-      "wazuh_rule_id": 100212,
+      "description": "Mirrors Wazuh 107212 / Sigma aiwall_cost_threshold. Covers both the per-request cost-threshold policy and rolling cost-budget caps.",
+      "wazuh_rule_id": 107212,
       "atlas_ids": ["AML.T0034"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=~\"cost-threshold|cost-budget\"",
       "filters": {
@@ -48,8 +48,8 @@
     {
       "id": "aiwall_daily_limit",
       "title": "Daily usage limit block",
-      "description": "Mirrors Wazuh 100213 / Sigma aiwall_daily_limit.",
-      "wazuh_rule_id": 100213,
+      "description": "Mirrors Wazuh 107213 / Sigma aiwall_daily_limit.",
+      "wazuh_rule_id": 107213,
       "atlas_ids": ["AML.T0034", "AML.T0046"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"daily-limit\"",
       "filters": {
@@ -80,8 +80,8 @@
     {
       "id": "aiwall_agent_approval_denied",
       "title": "Agent approval denied",
-      "description": "Agent shell/file action blocked after approval denial. Mirrors Wazuh 100214 / Sigma aiwall_agent_approval_denied.",
-      "wazuh_rule_id": 100214,
+      "description": "Agent shell/file action blocked after approval denial. Mirrors Wazuh 107214 / Sigma aiwall_agent_approval_denied.",
+      "wazuh_rule_id": 107214,
       "atlas_ids": ["AML.T0050", "AML.T0053"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"approval-denied\"",
       "filters": {
@@ -94,8 +94,8 @@
     {
       "id": "aiwall_agent_shell_risk",
       "title": "Agent shell risk warn",
-      "description": "Agent shell command in the warn band (reason starts with shell risk). Mirrors Wazuh 100215 / Sigma aiwall_agent_shell_risk.",
-      "wazuh_rule_id": 100215,
+      "description": "Agent shell command in the warn band (reason starts with shell risk). Mirrors Wazuh 107215 / Sigma aiwall_agent_shell_risk.",
+      "wazuh_rule_id": 107215,
       "atlas_ids": ["AML.T0050"],
       "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"warn\" | reason=~\"shell risk.*\"",
       "filters": {

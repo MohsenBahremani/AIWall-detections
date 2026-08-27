@@ -6,7 +6,7 @@
     {
       "id": "aiwall_secret_leak_blocked",
       "title": "Secret leak blocked",
-      "wazuh_rule_id": 100210,
+      "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
       "loki_query_ids": ["aiwall_secret_leak_blocked"],
       "atlas": [
@@ -27,7 +27,7 @@
     {
       "id": "aiwall_policy_block",
       "title": "Content policy block",
-      "wazuh_rule_id": 100211,
+      "wazuh_rule_id": 107211,
       "sigma_rule": "aiwall_policy_block",
       "loki_query_ids": ["aiwall_policy_block"],
       "atlas": [
@@ -43,7 +43,7 @@
     {
       "id": "aiwall_cost_threshold",
       "title": "Cost threshold block",
-      "wazuh_rule_id": 100212,
+      "wazuh_rule_id": 107212,
       "sigma_rule": "aiwall_cost_threshold",
       "loki_query_ids": ["aiwall_cost_threshold"],
       "atlas": [
@@ -57,9 +57,26 @@
       "attack_related": []
     },
     {
+      "id": "aiwall_cost_budget",
+      "title": "Cost budget block",
+      "wazuh_rule_id": 107216,
+      "sigma_rule": null,
+      "loki_query_ids": ["aiwall_cost_threshold"],
+      "atlas": [
+        {
+          "id": "AML.T0034",
+          "name": "Cost Harvesting",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM10"],
+      "attack_related": [],
+      "notes": "Rolling spend cap (reason=cost-budget). Sigma/Loki share aiwall_cost_threshold with per-request threshold."
+    },
+    {
       "id": "aiwall_daily_limit",
       "title": "Daily usage limit block",
-      "wazuh_rule_id": 100213,
+      "wazuh_rule_id": 107213,
       "sigma_rule": "aiwall_daily_limit",
       "loki_query_ids": ["aiwall_daily_limit"],
       "atlas": [
@@ -80,7 +97,7 @@
     {
       "id": "aiwall_agent_approval_denied",
       "title": "Agent approval denied",
-      "wazuh_rule_id": 100214,
+      "wazuh_rule_id": 107214,
       "sigma_rule": "aiwall_agent_approval_denied",
       "loki_query_ids": ["aiwall_agent_approval_denied"],
       "atlas": [
@@ -101,7 +118,7 @@
     {
       "id": "aiwall_agent_shell_risk",
       "title": "Agent shell risk warn",
-      "wazuh_rule_id": 100215,
+      "wazuh_rule_id": 107215,
       "sigma_rule": "aiwall_agent_shell_risk",
       "loki_query_ids": ["aiwall_agent_shell_risk"],
       "atlas": [

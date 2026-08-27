@@ -18,13 +18,13 @@ SAMPLE_JSONL = ROOT / "validation" / "samples" / "aiwall.audit.v1.sample.jsonl"
 
 # request_id -> expected firing alert rule id (not the level-0 parent)
 EXPECTED: dict[str, int] = {
-    "req-secret-001": 100210,
-    "req-policy-001": 100211,
-    "req-cost-001": 100212,
-    "req-cost-002": 100212,
-    "req-limit-001": 100213,
-    "req-agent-001": 100214,
-    "req-warn-001": 100215,
+    "req-secret-001": 107210,
+    "req-policy-001": 107211,
+    "req-cost-001": 107212,
+    "req-cost-002": 107216,
+    "req-limit-001": 107213,
+    "req-agent-001": 107214,
+    "req-warn-001": 107215,
 }
 
 

@@ -3,7 +3,7 @@ id: 28e8e2a2-b84b-49d9-a146-fb58a2868943
 status: experimental
 description: |
   Detects when AIWall blocks a request by content/category policy
-  (reason=category-blocked). Mirrors Wazuh rule 100211.
+  (reason=category-blocked). Mirrors Wazuh rule 107211.
 references:
   - https://github.com/MohsenBahremani/AIWall-detections
   - https://github.com/MohsenBahremani/AIWall/blob/main/docs/family-mode.md

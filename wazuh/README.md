@@ -21,13 +21,14 @@ File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
 
 | Rule id | Level | When |
 |---|---|---|
-| `100200` / `100201` | 0 | Parent: any AIWall audit event (jsonl / syslog) |
-| `100210` | 12 | `decision=block` + `reason=secret-detected` |
-| `100211` | 10 | `decision=block` + `reason=category-blocked` |
-| `100212` | 10 | `decision=block` + `reason=cost-threshold` or `cost-budget` |
-| `100213` | 10 | `decision=block` + `reason=daily-limit` |
-| `100214` | 12 | `decision=block` + `reason=approval-denied` |
-| `100215` | 7 | `decision=warn` + `reason` starts with `shell risk` |
+| `107200` / `107201` | 0 | Parent: AIWall audit (`decoded_as=json` + `schema=aiwall.audit.v1` for JSONL; syslog decoder for agent/syslog) |
+| `107210` | 12 | `decision=block` + `reason=secret-detected` |
+| `107211` | 10 | `decision=block` + `reason=category-blocked` |
+| `107212` | 10 | `decision=block` + `reason=cost-threshold` |
+| `107216` | 10 | `decision=block` + `reason=cost-budget` |
+| `107213` | 10 | `decision=block` + `reason=daily-limit` |
+| `107214` | 12 | `decision=block` + `reason=approval-denied` |
+| `107215` | 7 | `decision=warn` + `reason` starts with `shell risk` |
 
 ## Install
 
@@ -46,6 +47,8 @@ Point a `<localfile>` (or agent) at AIWall JSONL, for example:
 </localfile>
 ```
 
+With `<log_format>json</log_format>`, Wazuh uses its built-in **`json`** decoder (not the custom `aiwall-audit` decoder name). Parent rule **107200** matches `decoded_as=json` plus `schema=aiwall.audit.v1`.
+
 Or ship lines under syslog program name `aiwall` (uses the `aiwall-audit-syslog*` decoders).
 
 ## Verify
@@ -56,7 +59,7 @@ With a Wazuh manager:
 sudo /var/ossec/bin/wazuh-logtest < validation/samples/aiwall.audit.v1.sample.jsonl
 ```
 
-Expect decoder `aiwall-audit` and rule ids `100210`–`100215` on the matching sample lines.
+Expect `decoded_as=json` and rule ids `107210`–`107215` (plus `107216` for `cost-budget`) on the matching sample lines when using `<log_format>json</log_format>`.
 
 Without Wazuh, offline checks:
 

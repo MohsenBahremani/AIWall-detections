@@ -4,7 +4,7 @@ status: experimental
 description: |
   Detects when AIWall blocks an agent shell/file/tool action because a human
   denied (or timed out) approval (reason=approval-denied). Mirrors Wazuh rule
-  100214.
+  107214.
 references:
   - https://github.com/MohsenBahremani/AIWall-detections
   - https://github.com/MohsenBahremani/AIWall/blob/main/docs/agent-guardrails.md

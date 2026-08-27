@@ -7,13 +7,13 @@ Pack file: [`queries.json`](queries.json)
 
 | Id | Detects | Sample hit(s) |
 |---|---|---|
-| `aiwall_secret_leak_blocked` | `block` + `secret-detected` (Wazuh 100210) | `req-secret-001` |
-| `aiwall_policy_block` | `block` + `category-blocked` (100211) | `req-policy-001` |
-| `aiwall_cost_threshold` | `block` + `cost-threshold` or `cost-budget` (100212) | `req-cost-001`, `req-cost-002` |
-| `aiwall_daily_limit` | `block` + `daily-limit` (100213) | `req-limit-001` |
+| `aiwall_secret_leak_blocked` | `block` + `secret-detected` (Wazuh 107210) | `req-secret-001` |
+| `aiwall_policy_block` | `block` + `category-blocked` (107211) | `req-policy-001` |
+| `aiwall_cost_threshold` | `block` + `cost-threshold` or `cost-budget` (107212) | `req-cost-001`, `req-cost-002` |
+| `aiwall_daily_limit` | `block` + `daily-limit` (107213) | `req-limit-001` |
 | `aiwall_all_blocks` | all `decision=block` | block samples including agent deny |
-| `aiwall_agent_approval_denied` | `block` + `approval-denied` (100214) | `req-agent-001` |
-| `aiwall_agent_shell_risk` | `warn` + `shell risk…` (100215) | `req-warn-001` |
+| `aiwall_agent_approval_denied` | `block` + `approval-denied` (107214) | `req-agent-001` |
+| `aiwall_agent_shell_risk` | `warn` + `shell risk…` (107215) | `req-warn-001` |
 | `aiwall_secret_redacted` | `redact` + `secret-redacted` | `req-redact-001` |
 | `aiwall_upstream_error` | `decision=error` | `req-error-001` |
 

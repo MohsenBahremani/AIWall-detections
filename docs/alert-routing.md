@@ -9,12 +9,13 @@ How to turn AIWall detection hits into push notifications. Two layers:
 
 | Wazuh | Sigma / Loki id | Audit reason | Typical severity |
 |---|---|---|---|
-| 100210 | `aiwall_secret_leak_blocked` | `secret-detected` | high |
-| 100211 | `aiwall_policy_block` | `category-blocked` | medium |
-| 100212 | `aiwall_cost_threshold` | `cost-threshold` / `cost-budget` | medium |
-| 100213 | `aiwall_daily_limit` | `daily-limit` | medium |
-| 100214 | `aiwall_agent_approval_denied` | `approval-denied` | high |
-| 100215 | `aiwall_agent_shell_risk` | `shell risk…` | medium |
+| 107210 | `aiwall_secret_leak_blocked` | `secret-detected` | high |
+| 107211 | `aiwall_policy_block` | `category-blocked` | medium |
+| 107212 | `aiwall_cost_threshold` | `cost-threshold` | medium |
+| 107216 | `aiwall_cost_threshold` | `cost-budget` | medium |
+| 107213 | `aiwall_daily_limit` | `daily-limit` | medium |
+| 107214 | `aiwall_agent_approval_denied` | `approval-denied` | high |
+| 107215 | `aiwall_agent_shell_risk` | `shell risk…` | medium |
 | — | `aiwall_secret_redacted` | `secret-redacted` | info |
 | — | `aiwall_upstream_error` | `decision=error` | medium |
 
@@ -50,8 +51,8 @@ set -euo pipefail
 ALERT_JSON="$(cat)"
 RULE_ID="$(printf '%s' "$ALERT_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("rule",{}).get("id",""))')"
 case "$RULE_ID" in
-  100210|100214) PRIORITY=high; TAGS="warning,aiwall,skull" ;;
-  100211|100212|100213|100215) PRIORITY=default; TAGS="aiwall" ;;
+  107210|107214) PRIORITY=high; TAGS="warning,aiwall,skull" ;;
+  107211|107212|107213|107215|107216) PRIORITY=default; TAGS="aiwall" ;;
   *) exit 0 ;;
 esac
 TITLE="AIWall Wazuh rule ${RULE_ID}"
@@ -63,7 +64,7 @@ curl -fsS -d "$BODY" \
   "https://ntfy.sh/aiwall-alerts"
 ```
 
-Wire the script in Wazuh via an **integrator** or **active-response** that filters on `rule.id` in `100210-100215`. Exact XML depends on your Wazuh version — see [Wazuh integrator docs](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html).
+Wire the script in Wazuh via an **integrator** or **active-response** that filters on `rule.id` in `107210-107215`. Exact XML depends on your Wazuh version — see [Wazuh integrator docs](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html).
 
 ## 3. Wazuh → generic webhook
 
@@ -75,7 +76,7 @@ curl -fsS -X POST "https://ha.local/api/webhook/aiwall-siem" \
   -d "$ALERT_JSON"
 ```
 
-Map rule ids in HA: if `rule.id == 100210` → notify parents; if `100214` → notify admin on agent deny.
+Map rule ids in HA: if `rule.id == 107210` → notify parents; if `107214` → notify admin on agent deny.
 
 ## 4. Grafana / Loki alerts
 
