@@ -26,9 +26,11 @@ SAMPLE_JSONL = Path(__file__).resolve().parent / "samples" / "aiwall.audit.v1.sa
 WAZUH_RULES = ROOT / "wazuh" / "rules" / "aiwall_rules.xml"
 SIGMA_DIR = ROOT / "sigma" / "rules"
 LOKI_PACK = ROOT / "loki" / "queries.json"
+BRIDGE_PATH = Path(__file__).resolve().parent / "redteam_bridge.json"
 ATLAS_MAP = ROOT / "docs" / "atlas-mapping.json"
 COVERAGE_MD = ROOT / "docs" / "coverage-matrix.md"
 ROADMAP_MD = ROOT / "docs" / "detection-roadmap.md"
+BRIDGE_MD = ROOT / "docs" / "redteam-bridge.md"
 PLAYBOOKS = (
     ROOT / "playbooks" / "secret-leak-detected.md",
     ROOT / "playbooks" / "child-safety-block.md",
@@ -359,6 +361,88 @@ def check_atlas_coverage() -> list[str]:
     return errors
 
 
+def check_redteam_bridge(events: list[dict], expected: dict) -> list[str]:
+    """Every bridged technique points at a real sample + matching expected hit."""
+    errors: list[str] = []
+    if not BRIDGE_PATH.is_file():
+        return [f"missing {BRIDGE_PATH}"]
+    if not BRIDGE_MD.is_file():
+        return [f"missing {BRIDGE_MD}"]
+
+    bridge = json.loads(BRIDGE_PATH.read_text())
+    if bridge.get("schema") != "aiwall.redteam.bridge.v1":
+        return ["redteam_bridge.json: bad schema"]
+
+    by_id = {str(e.get("request_id") or ""): e for e in events}
+    hits_by_id = {
+        str(h.get("request_id") or ""): h for h in (expected.get("hits") or [])
+    }
+    entries = bridge.get("bridges") or []
+    if len(entries) < 8:
+        errors.append(f"redteam_bridge.json: expected >= 8 bridges, got {len(entries)}")
+
+    covered_holds = 0
+    for entry in entries:
+        tid = entry.get("technique_id") or "<missing>"
+        if entry.get("detection_gap"):
+            if entry.get("sample_request_id"):
+                errors.append(f"{tid}: detection_gap entries must not set sample_request_id")
+            continue
+
+        rid = entry.get("sample_request_id")
+        if not rid:
+            errors.append(f"{tid}: missing sample_request_id (or set detection_gap)")
+            continue
+        rid = str(rid)
+        event = by_id.get(rid)
+        if event is None:
+            errors.append(f"{tid}: sample_request_id {rid} not in corpus")
+            continue
+        hit = hits_by_id.get(rid)
+        if hit is None:
+            errors.append(f"{tid}: sample_request_id {rid} missing from expected_hits")
+            continue
+
+        for alt in entry.get("alternate_sample_request_ids") or []:
+            if str(alt) not in by_id:
+                errors.append(f"{tid}: alternate sample {alt} not in corpus")
+
+        reasons = entry.get("expected_reasons") or []
+        event_reason = str(event.get("reason") or "")
+        if reasons and not any(
+            event_reason == r or event_reason.startswith(r) for r in reasons
+        ):
+            errors.append(
+                f"{tid}: sample {rid} reason {event_reason!r} "
+                f"does not match expected_reasons {reasons}"
+            )
+
+        wazuh_id = entry.get("wazuh_rule_id")
+        if wazuh_id is not None and hit.get("wazuh_rule_id") != wazuh_id:
+            errors.append(
+                f"{tid}: bridge wazuh_rule_id {wazuh_id} != expected_hits "
+                f"{hit.get('wazuh_rule_id')} for {rid}"
+            )
+        sigma_name = entry.get("sigma_rule")
+        if sigma_name is not None and hit.get("sigma_rule") != sigma_name:
+            errors.append(
+                f"{tid}: bridge sigma_rule {sigma_name!r} != expected_hits "
+                f"{hit.get('sigma_rule')!r} for {rid}"
+            )
+        covered_holds += 1
+
+    if covered_holds < 7:
+        errors.append(
+            f"redteam_bridge.json: expected >= 7 mapped holds, got {covered_holds}"
+        )
+
+    md = BRIDGE_MD.read_text()
+    for needle in ("SE-01", "AT-01", "redteam_bridge.json", "detection_gap"):
+        if needle not in md:
+            errors.append(f"redteam-bridge.md should mention {needle!r}")
+    return errors
+
+
 def check_playbooks() -> list[str]:
     errors: list[str] = []
     required_headings = ("## Triage", "## Response")
@@ -461,6 +545,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAIL hits: {err}", file=sys.stderr)
         return 1
     print(f"ok expected hits matrix ({len(expected.get('hits') or [])} request_ids)")
+
+    bridge_errors = check_redteam_bridge(events, expected)
+    if bridge_errors:
+        for err in bridge_errors:
+            print(f"FAIL bridge: {err}", file=sys.stderr)
+        return 1
+    print("ok red team → detections bridge")
 
     atlas_errors = check_atlas_coverage()
     if atlas_errors:

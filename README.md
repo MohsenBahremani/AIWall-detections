@@ -62,17 +62,18 @@ python3 validation/validate_rules.py
 | Suspicious agent action | [playbooks/suspicious-agent-action.md](playbooks/suspicious-agent-action.md) |
 
 ATLAS mapping for every detection: [docs/coverage-matrix.md](docs/coverage-matrix.md).  
+Red team technique map: [docs/redteam-bridge.md](docs/redteam-bridge.md).  
 What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.md).
 
 ## What’s in the box
 
 | Content | Description |
 |---|---|
-| **Wazuh** | Decoders + parent rules 100200/100201 (level 0) and alert rules 100210–100213 (secret, category, cost, daily-limit) |
-| **Sigma** | Mirrors of those four alerts (Lucene-convertible) |
+| **Wazuh** | Decoders + parent rules 100200/100201 (level 0) and alert rules 100210–100215 |
+| **Sigma** | Mirrors of the six alerts (Lucene-convertible) |
 | **Grafana** | Overview dashboard (decisions, cost, models, providers) |
-| **Loki** | LogQL pack for the same four alerts, plus `aiwall_all_blocks`, `aiwall_agent_approval_denied`, `aiwall_secret_redacted`, and `aiwall_upstream_error` |
-| **Validation** | Sample corpus, expected hits, CI harness |
+| **Loki** | LogQL pack for alerts plus roll-ups / triage queries |
+| **Validation** | Sample corpus, expected hits, red-team bridge, CI harness |
 | **Playbooks** | Triage and response for common events |
 | **ATLAS** | Technique coverage matrix |
 

@@ -8,10 +8,11 @@ Where AIWall-detections is going next, and what already ships for operators.
 |---|---|
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
-| **Wazuh** | Decoders + rules 100210–100213 (secret, category, cost, daily-limit) |
-| **Sigma** | Four mirrors, Lucene-convertible |
+| **Wazuh** | Decoders + rules 100210–100215 (secret, category, cost, daily-limit, agent deny, shell-risk warn) |
+| **Sigma** | Six mirrors, Lucene-convertible |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
+| **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
 | **Playbooks** | Secret leak, child safety, suspicious agent action |
 | **CI** | `validation/validate_rules.py` on push/PR |
 
@@ -21,27 +22,30 @@ Follow the [README quick start](README.md#quick-start-load-rules-against-aiwall-
 
 Prioritized for Community follow-ups (issue-sized):
 
-1. **Prompt-injection / jailbreak signals** — dedicated rules for AML.T0051 / AML.T0054 (today only adjacent agent warns).
-2. **Agent-action Wazuh/Sigma alerts** — promote `approval-denied` / high shell risk from Loki-only to full SIEM packs.
+1. **Alert routing examples** — ntfy / webhook snippets keyed off Wazuh rule ids or Loki alerts.
+2. **Prompt-injection / jailbreak signals** — dedicated rules for AML.T0051 / AML.T0054 (blocked on core emitting stable reasons).
 3. **Model-extraction / high-volume query** — AML.T0024 style rate/anomaly detections on audit metrics.
-4. **Alert routing examples** — ntfy / webhook snippets keyed off Wazuh rule ids or Loki alerts.
+4. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
 5. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
 
-## Alignment with AIWall Red Team (Phase 7)
+## Alignment with AIWall Red Team
 
-[AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) already ships a 14-technique attack catalog, campaign runners, a must-block regression suite, and baseline/retest reports. The remaining work is on this side — turning those campaign outcomes into detection coverage:
+[AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) ships the attack catalog and must-block regression suite. The bridge in this repo maps those techniques to sample audit lines and SIEM rules:
 
-- Add sample JSONL lines for each control hit the campaigns produce.
-- Extend `expected_hits.json` and close the ATLAS gaps listed in `docs/coverage-matrix.md`, particularly the prompt-injection and agent-action techniques the catalog exercises but this repo does not yet alert on.
-- Prefer regression: campaign → expected audit reason → detection fire.
+- Machine-readable: [`validation/redteam_bridge.json`](../validation/redteam_bridge.json)
+- Operator doc: [`docs/redteam-bridge.md`](redteam-bridge.md)
+- Prefer regression: campaign → expected audit reason → detection fire
+
+Gaps (PI-01, PI-03, AT-02, dedicated jailbreak) are listed in the bridge with `detection_gap: true`.
 
 ## How to propose a new detection
 
 1. Capture or craft an `aiwall.audit.v1` sample line (fake secrets only).
 2. Add expectations to `validation/expected_hits.json`.
 3. Implement Wazuh and/or Sigma and/or Loki entries; map ATLAS in `docs/atlas-mapping.json`.
-4. Link a playbook section or new playbook if operators need triage steps.
-5. Run `python3 validation/validate_rules.py` and open a PR.
+4. If the sample comes from a red-team technique, add a row to `validation/redteam_bridge.json`.
+5. Link a playbook section or new playbook if operators need triage steps.
+6. Run `python3 validation/validate_rules.py` and open a PR.
 
 ## Out of scope (for now)
 
