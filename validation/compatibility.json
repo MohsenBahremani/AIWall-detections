@@ -1,0 +1,6 @@
+{
+  "detection_pack_version": "0.1.0",
+  "audit_schema": "aiwall.audit.v1",
+  "core_min_version": "0.1.0",
+  "reason_contract": "validation/audit_reasons.json"
+}
