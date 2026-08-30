@@ -2,7 +2,7 @@
   "schema": "aiwall.redteam.bridge.v1",
   "description": "Maps AIWall-redteam technique IDs to sample audit lines and detection packs. Source of truth for campaign → detection coverage.",
   "detections_sample": "validation/samples/aiwall.audit.v1.sample.jsonl",
-  "redteam_payloads": "https://github.com/MohsenBah/AIWall-redteam/tree/main/payloads",
+  "redteam_payloads": "https://github.com/MohsenBahremani/AIWall-redteam/tree/main/payloads",
   "bridges": [
     {
       "technique_id": "SE-01",

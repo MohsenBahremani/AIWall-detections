@@ -13,7 +13,7 @@
 | ATLAS | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter; AML.T0053 LLM Plugin Compromise |
 | Sample | `req-agent-001` (approval denied), `req-warn-001` (shell warn) |
 
-Upstream behavior: [AIWall agent-guardrails.md](https://github.com/MohsenBah/AIWall/blob/main/docs/agent-guardrails.md).
+Upstream behavior: [AIWall agent-guardrails.md](https://github.com/MohsenBahremani/AIWall/blob/main/docs/agent-guardrails.md).
 
 ## Triage (5–20 min)
 

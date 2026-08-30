@@ -20,7 +20,7 @@ How to turn AIWall detection hits into push notifications. Two layers:
 
 ## 1. AIWall gateway (ntfy / webhook)
 
-Configure in `aiwall.yaml` (see [AIWall configuration — alerts](https://github.com/MohsenBah/AIWall/blob/main/docs/configuration.md)):
+Configure in `aiwall.yaml` (see [AIWall configuration — alerts](https://github.com/MohsenBahremani/AIWall/blob/main/docs/configuration.md)):
 
 ```yaml
 alerts:

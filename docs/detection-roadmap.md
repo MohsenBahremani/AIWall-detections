@@ -43,7 +43,7 @@ python3 validation/validate_rules.py
 
 ## Alignment with AIWall Red Team
 
-[AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) ships the attack catalog and must-block regression suite. The bridge in this repo maps those techniques to sample audit lines and SIEM rules:
+[AIWall-redteam](https://github.com/MohsenBahremani/AIWall-redteam) ships the attack catalog and must-block regression suite. The bridge in this repo maps those techniques to sample audit lines and SIEM rules:
 
 - Machine-readable: [`validation/redteam_bridge.json`](../validation/redteam_bridge.json)
 - Operator doc: [`docs/redteam-bridge.md`](redteam-bridge.md)

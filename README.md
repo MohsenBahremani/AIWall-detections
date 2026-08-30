@@ -1,9 +1,9 @@
 # AIWall-detections
 
-Detection packs for [AIWall](https://github.com/MohsenBah/AIWall) audit logs: Wazuh, Sigma, Grafana/Loki, playbooks, and MITRE ATLAS mappings.
+Detection packs for [AIWall](https://github.com/MohsenBahremani/AIWall) audit logs: Wazuh, Sigma, Grafana/Loki, playbooks, and MITRE ATLAS mappings.
 
 **Event contract:** `aiwall.audit.v1` JSON Lines — no raw prompts.  
-Upstream schema: [AIWall `docs/audit-export.md`](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md).
+Upstream schema: [AIWall `docs/audit-export.md`](https://github.com/MohsenBahremani/AIWall/blob/main/docs/audit-export.md).
 
 ## Quick start: load rules against AIWall logs
 

@@ -1,6 +1,6 @@
 # Red team → detections bridge
 
-Connects [AIWall-redteam](https://github.com/MohsenBah/AIWall-redteam) technique IDs to the sample audit corpus and SIEM packs in this repo.
+Connects [AIWall-redteam](https://github.com/MohsenBahremani/AIWall-redteam) technique IDs to the sample audit corpus and SIEM packs in this repo.
 
 Machine-readable map: [`validation/redteam_bridge.json`](../validation/redteam_bridge.json) (checked by `validation/validate_rules.py`).
 

@@ -6,8 +6,8 @@ description: |
   cost-threshold (a single request over a `when: estimated_cost > N` policy)
   and cost-budget (a rolling day/week/month spend cap). Mirrors Wazuh 100212.
 references:
-  - https://github.com/MohsenBah/AIWall-detections
-  - https://github.com/MohsenBah/AIWall/blob/main/docs/configuration.md
+  - https://github.com/MohsenBahremani/AIWall-detections
+  - https://github.com/MohsenBahremani/AIWall/blob/main/docs/configuration.md
 author: AIWall
 date: 2026-08-08
 tags:

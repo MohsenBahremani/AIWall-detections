@@ -13,7 +13,7 @@
 | ATLAS | [AML.T0048](https://atlas.mitre.org/) External Harms |
 | Sample | `req-policy-001` |
 
-Upstream behavior: [AIWall family-mode.md](https://github.com/MohsenBah/AIWall/blob/main/docs/family-mode.md).
+Upstream behavior: [AIWall family-mode.md](https://github.com/MohsenBahremani/AIWall/blob/main/docs/family-mode.md).
 
 ## Triage (5–15 min)
 

@@ -1,10 +1,10 @@
 # Data sources
 
-AIWall-detections consumes the frozen audit export from [AIWall](https://github.com/MohsenBah/AIWall):
+AIWall-detections consumes the frozen audit export from [AIWall](https://github.com/MohsenBahremani/AIWall):
 
 **Schema:** `aiwall.audit.v1`  
 **Format:** JSON Lines (NDJSON) — one event object per line  
-**Upstream docs:** [AIWall `docs/audit-export.md`](https://github.com/MohsenBah/AIWall/blob/main/docs/audit-export.md)
+**Upstream docs:** [AIWall `docs/audit-export.md`](https://github.com/MohsenBahremani/AIWall/blob/main/docs/audit-export.md)
 
 ## How to obtain events
 

@@ -11,7 +11,7 @@
 | ATLAS | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage |
 | Sample | `req-secret-001`, `req-redact-001` |
 
-Upstream behavior: [AIWall secret-scanning.md](https://github.com/MohsenBah/AIWall/blob/main/docs/secret-scanning.md).
+Upstream behavior: [AIWall secret-scanning.md](https://github.com/MohsenBahremani/AIWall/blob/main/docs/secret-scanning.md).
 
 ## Triage (5–15 min)
 
