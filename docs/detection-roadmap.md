@@ -13,6 +13,7 @@ Where AIWall-detections is going next, and what already ships for operators.
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
 | **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
+| **Alert routing** | ntfy / webhook examples by Wazuh rule id (`docs/alert-routing.md`) |
 | **Playbooks** | Secret leak, child safety, suspicious agent action |
 | **CI** | `validation/validate_rules.py` on push/PR |
 
@@ -22,11 +23,10 @@ Follow the [README quick start](README.md#quick-start-load-rules-against-aiwall-
 
 Prioritized for Community follow-ups (issue-sized):
 
-1. **Alert routing examples** — ntfy / webhook snippets keyed off Wazuh rule ids or Loki alerts.
-2. **Prompt-injection / jailbreak signals** — dedicated rules for AML.T0051 / AML.T0054 (blocked on core emitting stable reasons).
-3. **Model-extraction / high-volume query** — AML.T0024 style rate/anomaly detections on audit metrics.
-4. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
-5. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
+1. **Prompt-injection / jailbreak signals** — dedicated rules for AML.T0051 / AML.T0054 (blocked on core emitting stable reasons).
+2. **Model-extraction / high-volume query** — AML.T0024 style rate/anomaly detections on audit metrics.
+3. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
+4. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
 
 ## Alignment with AIWall Red Team
 
