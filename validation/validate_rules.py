@@ -22,6 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_PATH = Path(__file__).resolve().parent / "expected_hits.json"
+AUDIT_REASONS_PATH = Path(__file__).resolve().parent / "audit_reasons.json"
 SAMPLE_JSONL = Path(__file__).resolve().parent / "samples" / "aiwall.audit.v1.sample.jsonl"
 WAZUH_RULES = ROOT / "wazuh" / "rules" / "aiwall_rules.xml"
 SIGMA_DIR = ROOT / "sigma" / "rules"
@@ -183,6 +184,31 @@ def check_corpus(events: list[dict]) -> list[str]:
             errors.append(f"line {i}: duplicate request_id {rid}")
         else:
             seen.add(rid)
+    return errors
+
+
+def _load_audit_reason_contract() -> tuple[frozenset[str], tuple[re.Pattern[str], ...]]:
+    payload = json.loads(AUDIT_REASONS_PATH.read_text(encoding="utf-8"))
+    exact = frozenset(payload.get("exact") or [])
+    patterns = tuple(re.compile(item) for item in payload.get("patterns") or [])
+    return exact, patterns
+
+
+def check_audit_reasons(events: list[dict]) -> list[str]:
+    if not AUDIT_REASONS_PATH.is_file():
+        return [f"missing {AUDIT_REASONS_PATH.relative_to(ROOT)}"]
+    exact, patterns = _load_audit_reason_contract()
+    errors: list[str] = []
+    for i, event in enumerate(events, start=1):
+        reason = event.get("reason")
+        if reason is None:
+            continue
+        text = str(reason).strip()
+        if text in exact:
+            continue
+        if any(pattern.fullmatch(text) for pattern in patterns):
+            continue
+        errors.append(f"line {i}: reason {text!r} not in audit_reasons.json contract")
     return errors
 
 
@@ -538,6 +564,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAIL corpus: {err}", file=sys.stderr)
         return 1
     print("ok corpus schema/fields/request_ids")
+
+    reason_errors = check_audit_reasons(events)
+    if reason_errors:
+        for err in reason_errors:
+            print(f"FAIL reasons: {err}", file=sys.stderr)
+        return 1
+    print("ok audit reason contract")
 
     hit_errors = check_expected_hits(events, expected)
     if hit_errors:

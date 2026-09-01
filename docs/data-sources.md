@@ -32,7 +32,7 @@ For a local Grafana view of the sample corpus, see [`grafana/README.md`](../graf
 
 Every line includes `"schema":"aiwall.audit.v1"` plus privacy-safe fields: decision, reason, policy, rule ids (array), categories (array), model/provider, tokens, cost, latency. **No raw prompts.**
 
-Full field table and the closed list of `reason` values: see upstream `docs/audit-export.md`.
+Full field table and the closed list of `reason` values: see upstream `docs/audit-export.md` and [`validation/audit_reasons.json`](../validation/audit_reasons.json).
 
 Two reasons cover cost enforcement and both must be matched: `cost-threshold` for a single request over a `when: estimated_cost > N` policy, and `cost-budget` for a rolling day/week/month spend cap. `policy_id` on a policy-driven block is the operator's own policy `name`, so treat it as free text and key detections off `reason`.
 

@@ -1,0 +1,26 @@
+{
+  "schema": "aiwall.audit.v1",
+  "exact": [
+    "proxied",
+    "secret-detected",
+    "private-key-detected",
+    "secret-redacted",
+    "category-blocked",
+    "cost-threshold",
+    "cost-budget",
+    "length-threshold",
+    "role-policy",
+    "daily-limit",
+    "policy-matched",
+    "policy_warn",
+    "approval-denied",
+    "approval-timeout",
+    "dangerous-shell-command",
+    "upstream_unreachable",
+    "upstream_error"
+  ],
+  "patterns": [
+    "^shell risk \\d+ \\([a-z]+\\)$",
+    "^sensitive-file-access:[a-z0-9_-]+$"
+  ]
+}
