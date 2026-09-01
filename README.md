@@ -64,7 +64,8 @@ python3 validation/validate_rules.py
 ATLAS mapping for every detection: [docs/coverage-matrix.md](docs/coverage-matrix.md).  
 Red team technique map: [docs/redteam-bridge.md](docs/redteam-bridge.md).  
 Alert routing (ntfy / webhook / Loki): [docs/alert-routing.md](docs/alert-routing.md).  
-What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.md).
+What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.md).  
+Blocked gaps (injection / rate): [docs/blocked-detections.md](docs/blocked-detections.md).
 
 ## What’s in the box
 

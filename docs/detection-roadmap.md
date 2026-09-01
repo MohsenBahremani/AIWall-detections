@@ -23,10 +23,10 @@ Follow the [README quick start](README.md#quick-start-load-rules-against-aiwall-
 
 Prioritized for Community follow-ups (issue-sized):
 
-1. **Prompt-injection / jailbreak signals** — dedicated rules for AML.T0051 / AML.T0054 (blocked on core emitting stable reasons).
-2. **Model-extraction / high-volume query** — AML.T0024 style rate/anomaly detections on audit metrics.
-3. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
-4. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
+1. **End-to-end regression** — campaign → export → `validate_rules.py` on captured lines.
+2. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
+
+Blocked on core (see [`blocked-detections.md`](blocked-detections.md)): prompt-injection / jailbreak reasons; model-extraction / rate metrics.
 
 ## Alignment with AIWall Red Team
 
