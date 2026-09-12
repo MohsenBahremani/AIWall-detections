@@ -1,6 +1,6 @@
 # Grafana dashboard for AIWall
 
-## Overview (Phase 6.5)
+## Overview
 
 Dashboard: [`dashboards/aiwall-overview.json`](dashboards/aiwall-overview.json)
 

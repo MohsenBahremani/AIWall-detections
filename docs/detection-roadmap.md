@@ -8,8 +8,8 @@ Where AIWall-detections is going next, and what already ships for operators.
 |---|---|
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
-| **Wazuh** | Decoders + rules 107210–107215 (secret, category, cost, daily-limit, agent deny, shell-risk warn) |
-| **Sigma** | Six mirrors, Lucene-convertible |
+| **Wazuh** | Decoders + rules 107210–107216 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget block) |
+| **Sigma** | Six mirrors, Lucene-convertible (no mirror for the Pro-only `cost-budget` rule) |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
 | **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
@@ -18,7 +18,7 @@ Where AIWall-detections is going next, and what already ships for operators.
 | **Playbooks** | Secret leak, child safety, suspicious agent action |
 | **CI** | `validation/validate_rules.py` on push/PR |
 
-Follow the [README quick start](README.md#quick-start-load-rules-against-aiwall-logs) to wire logs once.
+Follow the [README quick start](../README.md#quick-start-load-rules-against-aiwall-logs) to wire logs once.
 
 ## Near-term candidates
 

@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local audit exports scored by scripts/validate_export.sh — may contain real prompt data.
+aiwall-audit-*.jsonl

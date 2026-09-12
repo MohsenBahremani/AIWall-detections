@@ -1,6 +1,6 @@
 # Wazuh content for AIWall
 
-## Decoders (Phase 6.2)
+## Decoders
 
 File: [`decoders/aiwall_decoders.xml`](decoders/aiwall_decoders.xml)
 
@@ -15,7 +15,7 @@ Matches `aiwall.audit.v1` JSON Lines and extracts fields via Wazuh `JSON_Decoder
 | `matched_rule_ids`, `categories` | arrays |
 | `input_length`, `output_length`, `*_tokens`, `estimated_cost`, `redaction_count`, `latency_ms` | metrics |
 
-## Rules (Phase 6.3)
+## Rules
 
 File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
 
