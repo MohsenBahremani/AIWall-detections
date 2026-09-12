@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107216`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
+
+### Fixed
+
+- JSONL parent rule matching in the Wazuh decoders.
+- `docs/detection-roadmap.md` advertised rules `107210`–`107215`, omitting `107216` (cost-budget blocks), and its quick-start link resolved to a nonexistent `docs/README.md`.
+
 ## [0.1.0] - 2026-08-27
 
 ### Added
