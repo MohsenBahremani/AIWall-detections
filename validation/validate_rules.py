@@ -36,6 +36,7 @@ PLAYBOOKS = (
     ROOT / "playbooks" / "secret-leak-detected.md",
     ROOT / "playbooks" / "child-safety-block.md",
     ROOT / "playbooks" / "suspicious-agent-action.md",
+    ROOT / "playbooks" / "prompt-injection-blocked.md",
 )
 
 PACK_TESTS = (

@@ -25,6 +25,8 @@ EXPECTED: dict[str, int] = {
     "req-limit-001": 107213,
     "req-agent-001": 107214,
     "req-warn-001": 107215,
+    "req-inject-001": 107217,
+    "req-jailbreak-001": 107218,
 }
 
 

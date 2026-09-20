@@ -132,6 +132,43 @@
       "attack_related": []
     },
     {
+      "id": "aiwall_prompt_injection",
+      "title": "Prompt injection blocked",
+      "wazuh_rule_id": 107217,
+      "sigma_rule": "aiwall_prompt_injection",
+      "loki_query_ids": ["aiwall_prompt_injection"],
+      "atlas": [
+        {
+          "id": "AML.T0051",
+          "name": "LLM Prompt Injection",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM01"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_jailbreak",
+      "title": "Jailbreak probe blocked",
+      "wazuh_rule_id": 107218,
+      "sigma_rule": "aiwall_jailbreak",
+      "loki_query_ids": ["aiwall_jailbreak"],
+      "atlas": [
+        {
+          "id": "AML.T0054",
+          "name": "LLM Jailbreak",
+          "primary": true
+        },
+        {
+          "id": "AML.T0056",
+          "name": "LLM Meta Prompt Extraction",
+          "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM01", "LLM07"],
+      "attack_related": []
+    },
+    {
       "id": "aiwall_secret_redacted",
       "title": "Secret redacted",
       "wazuh_rule_id": null,

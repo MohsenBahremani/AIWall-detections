@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Wazuh rules **107217** / **107218** for `injection-detected` and `jailbreak-detected`, with Sigma, Loki, sample corpus, ATLAS map, and playbook.
+- Closed audit-reason contract entries for prompt-injection / jailbreak (mirrors core).
+
 ### Changed
 
-- **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107216`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
+- **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107218`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
 
 ### Fixed
 

@@ -78,8 +78,7 @@
     <group>aiwall_agent_approval_denied,</group>
   </rule>
 
-  <!--
-    Agent shell risk warn (ATLAS AML.T0050). AIWall reasons look like
+  <!-- Agent shell risk warn (ATLAS AML.T0050). AIWall reasons look like
     "shell risk 55 (medium)" — match the stable prefix, not the score.
   -->
   <rule id="107215" level="7">
@@ -88,6 +87,24 @@
     <field name="reason">^shell risk</field>
     <description>AIWall warned on a medium/high agent shell risk. ATLAS AML.T0050.</description>
     <group>aiwall_agent_shell_risk,</group>
+  </rule>
+
+  <!-- Prompt injection instruction override (ATLAS AML.T0051) -->
+  <rule id="107217" level="12">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^injection-detected$</field>
+    <description>AIWall blocked a prompt-injection probe (reason=injection-detected). ATLAS AML.T0051.</description>
+    <group>aiwall_prompt_injection,</group>
+  </rule>
+
+  <!-- Jailbreak / meta-prompt extraction (ATLAS AML.T0054 / AML.T0056) -->
+  <rule id="107218" level="12">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^jailbreak-detected$</field>
+    <description>AIWall blocked a jailbreak or meta-prompt probe (reason=jailbreak-detected). ATLAS AML.T0054.</description>
+    <group>aiwall_jailbreak,</group>
   </rule>
 
 </group>

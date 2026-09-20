@@ -17,6 +17,8 @@ OWASP LLM Top 10 column is informational (developer risk lens). ATT&CK IDs are o
 | Daily usage limit | 107213 | `aiwall_daily_limit` | `aiwall_daily_limit` | [AML.T0034](https://atlas.mitre.org/) Cost Harvesting | AML.T0046 Spamming ML System with Chaff Data | LLM10 |
 | Agent approval denied | 107214 | `aiwall_agent_approval_denied` | `aiwall_agent_approval_denied` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | AML.T0053 LLM Plugin Compromise | LLM06 |
 | Agent shell risk warn | 107215 | `aiwall_agent_shell_risk` | `aiwall_agent_shell_risk` | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter | — | LLM06 |
+| Prompt injection blocked | 107217 | `aiwall_prompt_injection` | `aiwall_prompt_injection` | [AML.T0051](https://atlas.mitre.org/) LLM Prompt Injection | — | LLM01 |
+| Jailbreak probe blocked | 107218 | `aiwall_jailbreak` | `aiwall_jailbreak` | [AML.T0054](https://atlas.mitre.org/) LLM Jailbreak | AML.T0056 Meta Prompt Extraction | LLM01 / LLM07 |
 | Secret redacted | — | — | `aiwall_secret_redacted` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | — | LLM02 |
 | Upstream provider errors | — | — | `aiwall_upstream_error` | [AML.T0029](https://atlas.mitre.org/) Denial of ML Service | — | LLM10 |
 
@@ -33,6 +35,9 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 | **AML.T0046** | Daily limits also blunt chaff / flood style usage |
 | **AML.T0050** | Agent shell / interpreter actions denied after approval failure, or warned in the shell-risk band |
 | **AML.T0053** | Agent tools/plugins are the execution surface being constrained |
+| **AML.T0051** | Instruction-override / role-hijack probes blocked as `injection-detected` |
+| **AML.T0054** | Jailbreak persona probes blocked as `jailbreak-detected` |
+| **AML.T0056** | Meta-prompt extraction probes share the jailbreak detection path |
 | **AML.T0029** | Upstream `decision=error` is an availability signal (dependency or resource failure), not proof of attack |
 
 ## Gaps (honest)
@@ -41,10 +46,7 @@ These ATLAS techniques are **not** covered by current Community detections. AIWa
 
 | ATLAS ID | Name | Gap |
 |---|---|---|
-| AML.T0051 | Prompt Injection | No dedicated injection-signature rule yet (agent warn paths are adjacent only) |
-| AML.T0054 | LLM Jailbreak | No jailbreak classifier detection |
 | AML.T0024 | Exfiltration via ML Inference API | Partial overlap with secret leak; no model-extraction / high-volume query rule |
-| AML.T0056 | LLM Meta Prompt Extraction | Not detected |
 
 ## Maintaining the matrix
 
@@ -59,3 +61,4 @@ These ATLAS techniques are **not** covered by current Community detections. AIWa
 | Secret leak / redact | [playbooks/secret-leak-detected.md](../playbooks/secret-leak-detected.md) |
 | Child / category block | [playbooks/child-safety-block.md](../playbooks/child-safety-block.md) |
 | Suspicious agent action | [playbooks/suspicious-agent-action.md](../playbooks/suspicious-agent-action.md) |
+| Prompt injection / jailbreak | [playbooks/prompt-injection-blocked.md](../playbooks/prompt-injection-blocked.md) |

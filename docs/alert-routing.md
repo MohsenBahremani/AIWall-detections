@@ -16,6 +16,8 @@ How to turn AIWall detection hits into push notifications. Two layers:
 | 107213 | `aiwall_daily_limit` | `daily-limit` | medium |
 | 107214 | `aiwall_agent_approval_denied` | `approval-denied` | high |
 | 107215 | `aiwall_agent_shell_risk` | `shell risk…` | medium |
+| 107217 | `aiwall_prompt_injection` | `injection-detected` | high |
+| 107218 | `aiwall_jailbreak` | `jailbreak-detected` | high |
 | — | `aiwall_secret_redacted` | `secret-redacted` | info |
 | — | `aiwall_upstream_error` | `decision=error` | medium |
 
@@ -51,7 +53,7 @@ set -euo pipefail
 ALERT_JSON="$(cat)"
 RULE_ID="$(printf '%s' "$ALERT_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("rule",{}).get("id",""))')"
 case "$RULE_ID" in
-  107210|107214) PRIORITY=high; TAGS="warning,aiwall,skull" ;;
+  107210|107214|107217|107218) PRIORITY=high; TAGS="warning,aiwall,skull" ;;
   107211|107212|107213|107215|107216) PRIORITY=default; TAGS="aiwall" ;;
   *) exit 0 ;;
 esac

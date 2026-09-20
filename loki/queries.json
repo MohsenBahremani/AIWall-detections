@@ -74,7 +74,9 @@
         "req-cost-001",
         "req-cost-002",
         "req-limit-001",
-        "req-agent-001"
+        "req-agent-001",
+        "req-inject-001",
+        "req-jailbreak-001"
       ]
     },
     {
@@ -104,6 +106,34 @@
         "reason": {"startswith": "shell risk"}
       },
       "expect_request_ids": ["req-warn-001"]
+    },
+    {
+      "id": "aiwall_prompt_injection",
+      "title": "Prompt injection blocked",
+      "description": "Instruction-override probe blocked. Mirrors Wazuh 107217 / Sigma aiwall_prompt_injection.",
+      "wazuh_rule_id": 107217,
+      "atlas_ids": ["AML.T0051"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"injection-detected\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "injection-detected"
+      },
+      "expect_request_ids": ["req-inject-001"]
+    },
+    {
+      "id": "aiwall_jailbreak",
+      "title": "Jailbreak probe blocked",
+      "description": "Jailbreak / meta-prompt probe blocked. Mirrors Wazuh 107218 / Sigma aiwall_jailbreak.",
+      "wazuh_rule_id": 107218,
+      "atlas_ids": ["AML.T0054", "AML.T0056"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"jailbreak-detected\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "jailbreak-detected"
+      },
+      "expect_request_ids": ["req-jailbreak-001"]
     },
     {
       "id": "aiwall_secret_redacted",

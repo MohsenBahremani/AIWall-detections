@@ -1,0 +1,28 @@
+title: AIWall Jailbreak Probe Blocked
+id: 9a1d6b40-2e8f-4c55-b7d1-3f0a9e6c8a12
+status: experimental
+description: |
+  Detects when AIWall blocks a jailbreak persona or meta-prompt extraction probe
+  (reason=jailbreak-detected). Mirrors Wazuh rule 107218.
+references:
+  - https://github.com/MohsenBahremani/AIWall-detections
+  - https://github.com/MohsenBahremani/AIWall/blob/main/docs/audit-export.md
+author: AIWall
+date: 2026-09-20
+tags:
+  - attack.defense-evasion
+  - atlas.aml.t0054
+  - atlas.aml.t0056
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason: 'jailbreak-detected'
+  condition: selection
+falsepositives:
+  - Red-team regression campaigns exercising PI-03 / DAN-style probes
+level: high

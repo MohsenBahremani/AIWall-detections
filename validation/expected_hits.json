@@ -62,6 +62,18 @@
       "wazuh_rule_id": 107215,
       "sigma_rule": "aiwall_agent_shell_risk",
       "loki_query_ids": ["aiwall_agent_shell_risk"]
+    },
+    {
+      "request_id": "req-inject-001",
+      "wazuh_rule_id": 107217,
+      "sigma_rule": "aiwall_prompt_injection",
+      "loki_query_ids": ["aiwall_prompt_injection", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-jailbreak-001",
+      "wazuh_rule_id": 107218,
+      "sigma_rule": "aiwall_jailbreak",
+      "loki_query_ids": ["aiwall_jailbreak", "aiwall_all_blocks"]
     }
   ]
 }

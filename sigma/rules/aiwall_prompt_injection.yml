@@ -1,0 +1,27 @@
+title: AIWall Prompt Injection Blocked
+id: 7c4f2e91-0a6b-4d3e-9f21-8b5a1c0d4e77
+status: experimental
+description: |
+  Detects when AIWall blocks a prompt-injection / instruction-override probe
+  (reason=injection-detected). Mirrors Wazuh rule 107217.
+references:
+  - https://github.com/MohsenBahremani/AIWall-detections
+  - https://github.com/MohsenBahremani/AIWall/blob/main/docs/audit-export.md
+author: AIWall
+date: 2026-09-20
+tags:
+  - attack.initial-access
+  - atlas.aml.t0051
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason: 'injection-detected'
+  condition: selection
+falsepositives:
+  - Red-team regression campaigns exercising PI-01
+level: high

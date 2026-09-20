@@ -8,8 +8,8 @@ Where AIWall-detections is going next, and what already ships for operators.
 |---|---|
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
-| **Wazuh** | Decoders + rules 107210–107216 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget block) |
-| **Sigma** | Six mirrors, Lucene-convertible (no mirror for the Pro-only `cost-budget` rule) |
+| **Wazuh** | Decoders + rules 107210–107218 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget, injection, jailbreak) |
+| **Sigma** | Eight mirrors, Lucene-convertible (no mirror for the Pro-only `cost-budget` rule) |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
 | **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
@@ -26,7 +26,7 @@ Prioritized for Community follow-ups (issue-sized):
 
 1. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
 
-Blocked on core (see [`blocked-detections.md`](blocked-detections.md)): prompt-injection / jailbreak reasons; model-extraction / rate metrics.
+Blocked on core (see [`blocked-detections.md`](blocked-detections.md)): rate-based model-extraction / high-volume query signals (AML.T0024). Prompt-injection / jailbreak reasons shipped in core (2026-09); SIEM packs cover PI-01 / PI-03.
 
 ## End-to-end lab check
 
@@ -49,7 +49,7 @@ python3 validation/validate_rules.py
 - Operator doc: [`docs/redteam-bridge.md`](redteam-bridge.md)
 - Prefer regression: campaign → expected audit reason → detection fire
 
-Gaps (PI-01, PI-03, AT-02, dedicated jailbreak) are listed in the bridge with `detection_gap: true`.
+Gaps (PI-02 adjacent-only category coverage, AT-02 sensitive-file sample, AML.T0024 rate signals) are listed in the bridge with `detection_gap: true` or notes.
 
 ## How to propose a new detection
 

@@ -94,10 +94,11 @@
     {
       "technique_id": "PI-01",
       "category": "prompt-injection",
-      "expected_reasons": [],
-      "sample_request_id": null,
-      "detection_gap": true,
-      "notes": "Usually allow/proxied today; needs core stable reason before a detection rule."
+      "expected_reasons": ["injection-detected"],
+      "sample_request_id": "req-inject-001",
+      "wazuh_rule_id": 107217,
+      "sigma_rule": "aiwall_prompt_injection",
+      "notes": "Instruction-override probe; core emits injection-detected."
     },
     {
       "technique_id": "PI-02",
@@ -111,10 +112,11 @@
     {
       "technique_id": "PI-03",
       "category": "prompt-injection",
-      "expected_reasons": [],
-      "sample_request_id": null,
-      "detection_gap": true,
-      "notes": "Meta-prompt extraction — no Community detection yet (AML.T0056)."
+      "expected_reasons": ["jailbreak-detected"],
+      "sample_request_id": "req-jailbreak-001",
+      "wazuh_rule_id": 107218,
+      "sigma_rule": "aiwall_jailbreak",
+      "notes": "Meta-prompt extraction / jailbreak persona probes (AML.T0056 / AML.T0054)."
     },
     {
       "technique_id": "AT-02",

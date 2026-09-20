@@ -24,12 +24,14 @@ Machine-readable map: [`validation/redteam_bridge.json`](../validation/redteam_b
 | CA-02 | `req-limit-001` | 107213 | `aiwall_daily_limit` |
 | AT-01 | `req-agent-001` | 107214 | `aiwall_agent_approval_denied` |
 | AT-03 | `req-warn-001` | 107215 | `aiwall_agent_shell_risk` |
+| PI-01 | `req-inject-001` | 107217 | `aiwall_prompt_injection` |
+| PI-03 | `req-jailbreak-001` | 107218 | `aiwall_jailbreak` |
 
 ## Gaps (need core or new samples)
 
-- **PI-01 / PI-03** — prompt injection / meta-prompt; no stable audit reason to detect.
-- **AT-02** — sensitive file access; awaiting a dedicated sample reason.
-- **PI-02** — only adjacent via `category-blocked`, not a jailbreak-specific rule.
+- **AT-02** — sensitive file access; needs a dedicated sample beyond shell/approval.
+- **AML.T0024** — model-extraction / high-volume query; needs aggregate metrics from core.
+- **PI-02** — adjacent via `category-blocked` only when family classifiers fire.
 
 ## Regression preference
 
