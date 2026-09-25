@@ -13,6 +13,7 @@
     "length-threshold",
     "role-policy",
     "daily-limit",
+    "extraction-rate",
     "policy-matched",
     "policy_warn",
     "approval-denied",
