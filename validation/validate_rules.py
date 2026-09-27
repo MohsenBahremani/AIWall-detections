@@ -37,6 +37,7 @@ PLAYBOOKS = (
     ROOT / "playbooks" / "child-safety-block.md",
     ROOT / "playbooks" / "suspicious-agent-action.md",
     ROOT / "playbooks" / "prompt-injection-blocked.md",
+    ROOT / "playbooks" / "extraction-rate-blocked.md",
 )
 
 PACK_TESTS = (

@@ -107,4 +107,13 @@
     <group>aiwall_jailbreak,</group>
   </rule>
 
+  <!-- Model-extraction / high-volume query (ATLAS AML.T0024) -->
+  <rule id="107219" level="10">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^extraction-rate$</field>
+    <description>AIWall blocked a high-volume query flood (reason=extraction-rate). ATLAS AML.T0024.</description>
+    <group>aiwall_extraction_rate,</group>
+  </rule>
+
 </group>

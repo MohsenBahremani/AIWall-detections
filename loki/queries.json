@@ -76,7 +76,8 @@
         "req-limit-001",
         "req-agent-001",
         "req-inject-001",
-        "req-jailbreak-001"
+        "req-jailbreak-001",
+        "req-extract-001"
       ]
     },
     {
@@ -134,6 +135,20 @@
         "reason": "jailbreak-detected"
       },
       "expect_request_ids": ["req-jailbreak-001"]
+    },
+    {
+      "id": "aiwall_extraction_rate",
+      "title": "Extraction rate blocked",
+      "description": "Rolling-window request/token flood blocked. Mirrors Wazuh 107219 / Sigma aiwall_extraction_rate.",
+      "wazuh_rule_id": 107219,
+      "atlas_ids": ["AML.T0024"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"extraction-rate\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "extraction-rate"
+      },
+      "expect_request_ids": ["req-extract-001"]
     },
     {
       "id": "aiwall_secret_redacted",

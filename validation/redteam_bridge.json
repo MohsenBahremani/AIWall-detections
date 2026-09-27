@@ -26,11 +26,12 @@
     {
       "technique_id": "SE-03",
       "category": "secret-exfiltration",
-      "expected_reasons": ["secret-detected", "secret-redacted"],
+      "expected_reasons": ["secret-detected", "secret-redacted", "extraction-rate"],
       "sample_request_id": "req-secret-001",
+      "alternate_sample_request_ids": ["req-extract-001"],
       "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
-      "notes": "Input secret still holds; output-only exfil remains a product gap."
+      "notes": "Input secret still holds; high-volume inference-path floods also map to req-extract-001 / 107219."
     },
     {
       "technique_id": "UC-01",

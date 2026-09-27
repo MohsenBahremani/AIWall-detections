@@ -8,6 +8,7 @@ Operator guides for common AIWall security events. Each playbook covers **triage
 | [child-safety-block.md](child-safety-block.md) | `category-blocked` (family / child policy) |
 | [suspicious-agent-action.md](suspicious-agent-action.md) | Agent shell/file warn, block, or approval denial |
 | [prompt-injection-blocked.md](prompt-injection-blocked.md) | `injection-detected` / `jailbreak-detected` |
+| [extraction-rate-blocked.md](extraction-rate-blocked.md) | `extraction-rate` |
 
 Detections that fire these alerts: [docs/coverage-matrix.md](../docs/coverage-matrix.md).  
 How to pull events: [docs/data-sources.md](../docs/data-sources.md).

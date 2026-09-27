@@ -24,6 +24,7 @@ EXPECTED_HITS: dict[str, set[str]] = {
     "aiwall_agent_shell_risk": {"req-warn-001"},
     "aiwall_prompt_injection": {"req-inject-001"},
     "aiwall_jailbreak": {"req-jailbreak-001"},
+    "aiwall_extraction_rate": {"req-extract-001"},
 }
 
 

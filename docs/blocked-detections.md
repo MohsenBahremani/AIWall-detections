@@ -1,8 +1,7 @@
 # Blocked detection work (needs AIWall core)
 
-These items are tracked in the long-term plan under Detection Integration.
-They are **not** shippable as SIEM rules alone — AIWall must emit a stable audit
-`reason` (or aggregate metrics) first.
+These items were tracked in the long-term plan under Detection Integration.
+Prompt-injection and extraction-rate reasons now ship in Community core.
 
 ## Prompt injection / jailbreak / meta-prompt — shipped
 
@@ -14,14 +13,24 @@ They are **not** shippable as SIEM rules alone — AIWall must emit a stable aud
 
 See playbook [`prompt-injection-blocked.md`](../playbooks/prompt-injection-blocked.md).
 
-## Model-extraction / high-volume query (AML.T0024)
+## Model-extraction / high-volume query (AML.T0024) — shipped
 
-Partial overlap exists with secret-leak rules. A true extraction/rate detection needs **aggregate** signals (requests per profile, tokens over a window), which may require new audit fields or a metrics endpoint — not a single-line Wazuh match.
+Core computes a rolling request/token window (`rate_limits`) and emits
+`extraction-rate` on the blocking audit line. Wazuh **107219** / Sigma
+`aiwall_extraction_rate` match that reason.
 
-**Unblock when:** audit/metrics shape is decided and documented in AIWall `docs/audit-export.md`.
+See playbook [`extraction-rate-blocked.md`](../playbooks/extraction-rate-blocked.md)
+and AIWall `docs/configuration.md`.
+
+## Remaining product gaps (not SIEM-blocked)
+
+| Item | Notes |
+|---|---|
+| AT-02 sensitive-file sample | Needs a dedicated corpus line beyond shell/approval |
+| PI-02 | Adjacent via `category-blocked` unless a DAN-style jailbreak classifier also fires |
+| Output-only secret exfil | Still a product gap (SE-03 notes) |
 
 ## Related
 
-- Bridge gaps: [`validation/redteam_bridge.json`](../validation/redteam_bridge.json) (`detection_gap: true`)
+- Bridge: [`validation/redteam_bridge.json`](../validation/redteam_bridge.json)
 - Coverage matrix: [`coverage-matrix.md`](coverage-matrix.md)
-- Red-team baseline: PI-01/PI-03 now map to sample lines when policies are enabled

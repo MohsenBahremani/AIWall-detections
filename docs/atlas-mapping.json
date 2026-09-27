@@ -148,6 +148,22 @@
       "attack_related": []
     },
     {
+      "id": "aiwall_extraction_rate",
+      "title": "Extraction rate blocked",
+      "wazuh_rule_id": 107219,
+      "sigma_rule": "aiwall_extraction_rate",
+      "loki_query_ids": ["aiwall_extraction_rate"],
+      "atlas": [
+        {
+          "id": "AML.T0024",
+          "name": "Exfiltration via ML Inference API",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM10", "LLM02"],
+      "attack_related": []
+    },
+    {
       "id": "aiwall_jailbreak",
       "title": "Jailbreak probe blocked",
       "wazuh_rule_id": 107218,

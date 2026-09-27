@@ -26,11 +26,11 @@ Machine-readable map: [`validation/redteam_bridge.json`](../validation/redteam_b
 | AT-03 | `req-warn-001` | 107215 | `aiwall_agent_shell_risk` |
 | PI-01 | `req-inject-001` | 107217 | `aiwall_prompt_injection` |
 | PI-03 | `req-jailbreak-001` | 107218 | `aiwall_jailbreak` |
+| SE-03 (volume) | `req-extract-001` | 107219 | `aiwall_extraction_rate` |
 
 ## Gaps (need core or new samples)
 
 - **AT-02** — sensitive file access; needs a dedicated sample beyond shell/approval.
-- **AML.T0024** — model-extraction / high-volume query; needs aggregate metrics from core.
 - **PI-02** — adjacent via `category-blocked` only when family classifiers fire.
 
 ## Regression preference

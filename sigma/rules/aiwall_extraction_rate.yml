@@ -1,0 +1,27 @@
+title: AIWall Extraction Rate Blocked
+id: 4e8c1a70-6b2d-4f11-9c3a-2d5e8f0a1b64
+status: experimental
+description: |
+  Detects when AIWall blocks a rolling-window request or token flood
+  (reason=extraction-rate). Mirrors Wazuh rule 107219.
+references:
+  - https://github.com/MohsenBahremani/AIWall-detections
+  - https://github.com/MohsenBahremani/AIWall/blob/main/docs/configuration.md
+author: AIWall
+date: 2026-09-27
+tags:
+  - attack.exfiltration
+  - atlas.aml.t0024
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason: 'extraction-rate'
+  condition: selection
+falsepositives:
+  - Shared lab clients hitting a low max_requests cap
+level: medium

@@ -74,6 +74,12 @@
       "wazuh_rule_id": 107218,
       "sigma_rule": "aiwall_jailbreak",
       "loki_query_ids": ["aiwall_jailbreak", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-extract-001",
+      "wazuh_rule_id": 107219,
+      "sigma_rule": "aiwall_extraction_rate",
+      "loki_query_ids": ["aiwall_extraction_rate", "aiwall_all_blocks"]
     }
   ]
 }
