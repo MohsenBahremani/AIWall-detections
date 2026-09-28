@@ -13,6 +13,9 @@ Pack file: [`queries.json`](queries.json)
 | `aiwall_daily_limit` | `block` + `daily-limit` (107213) | `req-limit-001` |
 | `aiwall_all_blocks` | all `decision=block` | block samples including agent deny |
 | `aiwall_agent_approval_denied` | `block` + `approval-denied` (107214) | `req-agent-001` |
+| `aiwall_extraction_rate` | `block` + `extraction-rate` (107219) | `req-extract-001` |
+| `aiwall_sensitive_file_access` | `block` + `sensitive-file-access:…` (107220) | `req-sensitive-file-001` |
+| `aiwall_output_secret_blocked` | `block` + `output-secret-detected` (107221) | `req-output-secret-001` |
 | `aiwall_agent_shell_risk` | `warn` + `shell risk…` (107215) | `req-warn-001` |
 | `aiwall_secret_redacted` | `redact` + `secret-redacted` | `req-redact-001` |
 | `aiwall_upstream_error` | `decision=error` | `req-error-001` |

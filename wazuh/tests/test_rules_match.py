@@ -28,6 +28,8 @@ EXPECTED: dict[str, int] = {
     "req-inject-001": 107217,
     "req-jailbreak-001": 107218,
     "req-extract-001": 107219,
+    "req-sensitive-file-001": 107220,
+    "req-output-secret-001": 107221,
 }
 
 

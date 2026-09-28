@@ -77,7 +77,9 @@
         "req-agent-001",
         "req-inject-001",
         "req-jailbreak-001",
-        "req-extract-001"
+        "req-extract-001",
+        "req-sensitive-file-001",
+        "req-output-secret-001"
       ]
     },
     {
@@ -149,6 +151,34 @@
         "reason": "extraction-rate"
       },
       "expect_request_ids": ["req-extract-001"]
+    },
+    {
+      "id": "aiwall_sensitive_file_access",
+      "title": "Sensitive file access blocked",
+      "description": "Agent file tool targeting a sensitive path. Mirrors Wazuh 107220 / Sigma aiwall_sensitive_file_access.",
+      "wazuh_rule_id": 107220,
+      "atlas_ids": ["AML.T0053", "AML.T0055"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=~\"sensitive-file-access.*\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": {"startswith": "sensitive-file-access"}
+      },
+      "expect_request_ids": ["req-sensitive-file-001"]
+    },
+    {
+      "id": "aiwall_output_secret_blocked",
+      "title": "Output secret blocked",
+      "description": "Secret found in a model reply. Mirrors Wazuh 107221 / Sigma aiwall_output_secret_blocked.",
+      "wazuh_rule_id": 107221,
+      "atlas_ids": ["AML.T0057"],
+      "logql": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" | decision=\"block\" | reason=\"output-secret-detected\"",
+      "filters": {
+        "schema": "aiwall.audit.v1",
+        "decision": "block",
+        "reason": "output-secret-detected"
+      },
+      "expect_request_ids": ["req-output-secret-001"]
     },
     {
       "id": "aiwall_secret_redacted",

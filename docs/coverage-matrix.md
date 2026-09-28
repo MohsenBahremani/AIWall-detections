@@ -20,6 +20,8 @@ OWASP LLM Top 10 column is informational (developer risk lens). ATT&CK IDs are o
 | Prompt injection blocked | 107217 | `aiwall_prompt_injection` | `aiwall_prompt_injection` | [AML.T0051](https://atlas.mitre.org/) LLM Prompt Injection | — | LLM01 |
 | Jailbreak probe blocked | 107218 | `aiwall_jailbreak` | `aiwall_jailbreak` | [AML.T0054](https://atlas.mitre.org/) LLM Jailbreak | AML.T0056 Meta Prompt Extraction | LLM01 / LLM07 |
 | Extraction rate blocked | 107219 | `aiwall_extraction_rate` | `aiwall_extraction_rate` | [AML.T0024](https://atlas.mitre.org/) Exfiltration via ML Inference API | — | LLM10 / LLM02 |
+| Sensitive file access blocked | 107220 | `aiwall_sensitive_file_access` | `aiwall_sensitive_file_access` | [AML.T0053](https://atlas.mitre.org/) LLM Plugin Compromise | AML.T0055 Unsecured Credentials | LLM06 / LLM02 |
+| Output secret blocked | 107221 | `aiwall_output_secret_blocked` | `aiwall_output_secret_blocked` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | — | LLM02 |
 | Secret redacted | — | — | `aiwall_secret_redacted` | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage | — | LLM02 |
 | Upstream provider errors | — | — | `aiwall_upstream_error` | [AML.T0029](https://atlas.mitre.org/) Denial of ML Service | — | LLM10 |
 
@@ -40,17 +42,13 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 | **AML.T0054** | Jailbreak persona probes blocked as `jailbreak-detected` |
 | **AML.T0056** | Meta-prompt extraction probes share the jailbreak detection path |
 | **AML.T0024** | Rolling request/token floods blocked as `extraction-rate` |
+| **AML.T0053** | Agent file tools targeting SSH keys / credential paths blocked as `sensitive-file-access:<rule_id>` |
 | **AML.T0029** | Upstream `decision=error` is an availability signal (dependency or resource failure), not proof of attack |
 
 ## Gaps (honest)
 
 Community detections now cover the ATLAS techniques that had dedicated core reasons.
-Remaining product gaps (not missing SIEM rules):
-
-| ATLAS / item | Gap |
-|---|---|
-| AT-02 | Sensitive-file access still needs a dedicated sample line |
-| SE-03 output-only | Secret leaving in the **model reply** is still a product gap |
+Remaining follow-up is multi-tenant / org labels if core adds those fields.
 
 ## Maintaining the matrix
 

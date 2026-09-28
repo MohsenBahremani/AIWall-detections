@@ -11,7 +11,7 @@ jailbreak-persona, or meta-prompt extraction patterns.
 | Sigma / Loki | `aiwall_prompt_injection` / `aiwall_jailbreak` |
 | ATLAS | [AML.T0051](https://atlas.mitre.org/) Prompt Injection; [AML.T0054](https://atlas.mitre.org/) Jailbreak; [AML.T0056](https://atlas.mitre.org/) Meta Prompt Extraction |
 | Sample | `req-inject-001`, `req-jailbreak-001` |
-| Red-team | PI-01, PI-03 |
+| Red-team | PI-01, PI-02, PI-03 |
 
 Upstream behavior: AIWall `docs/audit-export.md` and `docs/configuration.md`
 (`input.contains_injection` / `input.contains_jailbreak`).

@@ -25,6 +25,8 @@ EXPECTED_HITS: dict[str, set[str]] = {
     "aiwall_prompt_injection": {"req-inject-001"},
     "aiwall_jailbreak": {"req-jailbreak-001"},
     "aiwall_extraction_rate": {"req-extract-001"},
+    "aiwall_sensitive_file_access": {"req-sensitive-file-001"},
+    "aiwall_output_secret_blocked": {"req-output-secret-001"},
 }
 
 

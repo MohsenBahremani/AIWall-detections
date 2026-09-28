@@ -1,0 +1,27 @@
+title: AIWall Sensitive File Access Blocked
+id: 7c3a9e21-4b58-4d0f-9a12-8e6f1c4b2d90
+status: experimental
+description: |
+  Detects when AIWall blocks an agent file tool targeting a sensitive path
+  (reason starts with sensitive-file-access). Mirrors Wazuh rule 107220.
+references:
+  - https://github.com/MohsenBahremani/AIWall-detections
+  - https://github.com/MohsenBahremani/AIWall/blob/main/docs/agent-guardrails.md
+author: AIWall
+date: 2026-09-27
+tags:
+  - attack.collection
+  - atlas.aml.t0053
+logsource:
+  product: aiwall
+  service: audit
+  definition: 'AIWall aiwall.audit.v1 JSON Lines export'
+detection:
+  selection:
+    schema: 'aiwall.audit.v1'
+    decision: 'block'
+    reason|startswith: 'sensitive-file-access'
+  condition: selection
+falsepositives:
+  - Lab agents intentionally probing file guardrails
+level: high

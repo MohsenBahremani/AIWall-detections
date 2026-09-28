@@ -80,6 +80,18 @@
       "wazuh_rule_id": 107219,
       "sigma_rule": "aiwall_extraction_rate",
       "loki_query_ids": ["aiwall_extraction_rate", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-sensitive-file-001",
+      "wazuh_rule_id": 107220,
+      "sigma_rule": "aiwall_sensitive_file_access",
+      "loki_query_ids": ["aiwall_sensitive_file_access", "aiwall_all_blocks"]
+    },
+    {
+      "request_id": "req-output-secret-001",
+      "wazuh_rule_id": 107221,
+      "sigma_rule": "aiwall_output_secret_blocked",
+      "loki_query_ids": ["aiwall_output_secret_blocked", "aiwall_all_blocks"]
     }
   ]
 }

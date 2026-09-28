@@ -116,4 +116,25 @@
     <group>aiwall_extraction_rate,</group>
   </rule>
 
+  <!-- Agent sensitive file access (ATLAS AML.T0053 / AML.T0055) -->
+  <rule id="107220" level="12">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^sensitive-file-access</field>
+    <description>AIWall blocked a sensitive file access (reason=sensitive-file-access:…). ATLAS AML.T0053.</description>
+    <group>aiwall_sensitive_file,</group>
+  </rule>
+
+  <!-- Secret in model reply (ATLAS AML.T0057) -->
+  <rule id="107221" level="12">
+    <if_sid>107200,107201</if_sid>
+    <field name="decision">^block$</field>
+    <field name="reason">^output-secret-detected$</field>
+    <description>AIWall blocked a secret in a model reply (reason=output-secret-detected). ATLAS AML.T0057.</description>
+    <mitre>
+      <id>T1552</id>
+    </mitre>
+    <group>aiwall_output_secret,</group>
+  </rule>
+
 </group>

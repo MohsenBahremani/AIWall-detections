@@ -29,6 +29,11 @@ File: [`rules/aiwall_rules.xml`](rules/aiwall_rules.xml)
 | `107213` | 10 | `decision=block` + `reason=daily-limit` |
 | `107214` | 12 | `decision=block` + `reason=approval-denied` |
 | `107215` | 7 | `decision=warn` + `reason` starts with `shell risk` |
+| `107217` | 12 | `decision=block` + `reason=injection-detected` |
+| `107218` | 12 | `decision=block` + `reason=jailbreak-detected` |
+| `107219` | 10 | `decision=block` + `reason=extraction-rate` |
+| `107220` | 12 | `decision=block` + `reason` starts with `sensitive-file-access` |
+| `107221` | 12 | `decision=block` + `reason=output-secret-detected` |
 
 ## Install
 
@@ -59,7 +64,7 @@ With a Wazuh manager:
 sudo /var/ossec/bin/wazuh-logtest < validation/samples/aiwall.audit.v1.sample.jsonl
 ```
 
-Expect `decoded_as=json` and rule ids `107210`–`107215` (plus `107216` for `cost-budget`) on the matching sample lines when using `<log_format>json</log_format>`.
+Expect `decoded_as=json` and rule ids `107210`–`107221` on the matching sample lines when using `<log_format>json</log_format`.
 
 Without Wazuh, offline checks:
 

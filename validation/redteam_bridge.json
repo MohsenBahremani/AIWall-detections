@@ -28,10 +28,10 @@
       "category": "secret-exfiltration",
       "expected_reasons": ["secret-detected", "secret-redacted", "extraction-rate"],
       "sample_request_id": "req-secret-001",
-      "alternate_sample_request_ids": ["req-extract-001"],
+      "alternate_sample_request_ids": ["req-extract-001", "req-output-secret-001"],
       "wazuh_rule_id": 107210,
       "sigma_rule": "aiwall_secret_leak_blocked",
-      "notes": "Input secret still holds; high-volume inference-path floods also map to req-extract-001 / 107219."
+      "notes": "Input secret still holds; high-volume inference-path floods also map to req-extract-001 / 107219. Output-only leaks map to req-output-secret-001 / 107221."
     },
     {
       "technique_id": "UC-01",
@@ -104,11 +104,11 @@
     {
       "technique_id": "PI-02",
       "category": "prompt-injection",
-      "expected_reasons": ["category-blocked"],
-      "sample_request_id": "req-policy-001",
-      "wazuh_rule_id": 107211,
-      "sigma_rule": "aiwall_policy_block",
-      "notes": "Adjacent coverage only when classifiers fire category-blocked; not a dedicated jailbreak rule."
+      "expected_reasons": ["jailbreak-detected"],
+      "sample_request_id": "req-jailbreak-001",
+      "wazuh_rule_id": 107218,
+      "sigma_rule": "aiwall_jailbreak",
+      "notes": "Safety-bypass framing (pretend safety rules do not apply) emits jailbreak-detected without a child category policy."
     },
     {
       "technique_id": "PI-03",
@@ -122,10 +122,11 @@
     {
       "technique_id": "AT-02",
       "category": "agent-tool-abuse",
-      "expected_reasons": [],
-      "sample_request_id": null,
-      "detection_gap": true,
-      "notes": "Sensitive file access; add a dedicated sample when audit reasons stabilize beyond shell/approval."
+      "expected_reasons": ["sensitive-file-access"],
+      "sample_request_id": "req-sensitive-file-001",
+      "wazuh_rule_id": 107220,
+      "sigma_rule": "aiwall_sensitive_file_access",
+      "notes": "File tool targeting ~/.ssh/id_rsa; reason prefix sensitive-file-access:<rule_id>."
     }
   ]
 }

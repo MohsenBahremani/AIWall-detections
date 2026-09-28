@@ -8,7 +8,7 @@ Prompt-injection and extraction-rate reasons now ship in Community core.
 | ATLAS | Red-team | Status |
 |---|---|---|
 | AML.T0051 | PI-01 | **Done** — core `injection-detected` + Wazuh **107217** |
-| AML.T0054 | PI-02 / DAN | **Done** for dedicated jailbreak reason; PI-02 still may use `category-blocked` when family classifiers fire |
+| AML.T0054 | PI-02 / DAN | **Done** — safety-bypass framing and DAN-style probes emit `jailbreak-detected` (Wazuh **107218**) |
 | AML.T0056 | PI-03 | **Done** — core `jailbreak-detected` + Wazuh **107218** |
 
 See playbook [`prompt-injection-blocked.md`](../playbooks/prompt-injection-blocked.md).
@@ -26,9 +26,7 @@ and AIWall `docs/configuration.md`.
 
 | Item | Notes |
 |---|---|
-| AT-02 sensitive-file sample | Needs a dedicated corpus line beyond shell/approval |
-| PI-02 | Adjacent via `category-blocked` unless a DAN-style jailbreak classifier also fires |
-| Output-only secret exfil | Still a product gap (SE-03 notes) |
+| Multi-tenant / org labels | If core adds org fields to export, extend decoders and dashboards |
 
 ## Related
 

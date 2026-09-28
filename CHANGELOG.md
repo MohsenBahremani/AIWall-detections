@@ -6,11 +6,13 @@
 
 - Wazuh rules **107217** / **107218** for `injection-detected` and `jailbreak-detected`, with Sigma, Loki, sample corpus, ATLAS map, and playbook.
 - Wazuh rule **107219** for `extraction-rate` (AML.T0024), with Sigma, Loki, sample `req-extract-001`, and playbook.
+- Wazuh rule **107220** for `sensitive-file-access:*` (AT-02), with Sigma, Loki, and sample `req-sensitive-file-001`.
+- Wazuh rule **107221** for `output-secret-detected` (SE-03 output DLP), with Sigma, Loki, and sample `req-output-secret-001`.
 - Closed audit-reason contract entries for prompt-injection / jailbreak (mirrors core).
 
 ### Changed
 
-- **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107219`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
+- **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107221`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
 
 ### Fixed
 

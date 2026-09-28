@@ -25,13 +25,15 @@ Machine-readable map: [`validation/redteam_bridge.json`](../validation/redteam_b
 | AT-01 | `req-agent-001` | 107214 | `aiwall_agent_approval_denied` |
 | AT-03 | `req-warn-001` | 107215 | `aiwall_agent_shell_risk` |
 | PI-01 | `req-inject-001` | 107217 | `aiwall_prompt_injection` |
+| PI-02 | `req-jailbreak-001` | 107218 | `aiwall_jailbreak` |
 | PI-03 | `req-jailbreak-001` | 107218 | `aiwall_jailbreak` |
 | SE-03 (volume) | `req-extract-001` | 107219 | `aiwall_extraction_rate` |
+| AT-02 | `req-sensitive-file-001` | 107220 | `aiwall_sensitive_file_access` |
+| SE-03 (output) | `req-output-secret-001` | 107221 | `aiwall_output_secret_blocked` |
 
 ## Gaps (need core or new samples)
 
-- **AT-02** — sensitive file access; needs a dedicated sample beyond shell/approval.
-- **PI-02** — adjacent via `category-blocked` only when family classifiers fire.
+No Community `detection_gap` entries remain for the current red-team catalog. Re-add a `detection_gap` row if a new technique ships without a stable audit reason.
 
 ## Regression preference
 

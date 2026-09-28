@@ -164,6 +164,43 @@
       "attack_related": []
     },
     {
+      "id": "aiwall_sensitive_file_access",
+      "title": "Sensitive file access blocked",
+      "wazuh_rule_id": 107220,
+      "sigma_rule": "aiwall_sensitive_file_access",
+      "loki_query_ids": ["aiwall_sensitive_file_access"],
+      "atlas": [
+        {
+          "id": "AML.T0053",
+          "name": "LLM Plugin Compromise",
+          "primary": true
+        },
+        {
+          "id": "AML.T0055",
+          "name": "Unsecured Credentials",
+          "primary": false
+        }
+      ],
+      "owasp_llm": ["LLM06", "LLM02"],
+      "attack_related": []
+    },
+    {
+      "id": "aiwall_output_secret_blocked",
+      "title": "Output secret blocked",
+      "wazuh_rule_id": 107221,
+      "sigma_rule": "aiwall_output_secret_blocked",
+      "loki_query_ids": ["aiwall_output_secret_blocked"],
+      "atlas": [
+        {
+          "id": "AML.T0057",
+          "name": "LLM Data Leakage",
+          "primary": true
+        }
+      ],
+      "owasp_llm": ["LLM02"],
+      "attack_related": ["T1552"]
+    },
+    {
       "id": "aiwall_jailbreak",
       "title": "Jailbreak probe blocked",
       "wazuh_rule_id": 107218,

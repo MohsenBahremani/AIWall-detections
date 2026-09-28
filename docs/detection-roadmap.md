@@ -8,7 +8,7 @@ Where AIWall-detections is going next, and what already ships for operators.
 |---|---|
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
-| **Wazuh** | Decoders + rules 107210–107219 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget, injection, jailbreak, extraction-rate) |
+| **Wazuh** | Decoders + rules 107210–107221 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget, injection, jailbreak, extraction-rate, sensitive-file, output-secret) |
 | **Sigma** | Nine mirrors, Lucene-convertible (no mirror for the Pro-only `cost-budget` rule) |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
@@ -26,7 +26,7 @@ Prioritized for Community follow-ups (issue-sized):
 
 1. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
 
-Prompt-injection / jailbreak and extraction-rate reasons shipped in core (2026-09); SIEM packs cover PI-01 / PI-03 and AML.T0024. Remaining follow-ups: multi-tenant / org labels.
+Prompt-injection / jailbreak and extraction-rate reasons shipped in core (2026-09); SIEM packs cover PI-01 / PI-02 / PI-03, AT-02, and SE-03 output DLP. Remaining follow-ups: multi-tenant / org labels.
 
 ## End-to-end lab check
 
@@ -49,7 +49,7 @@ python3 validation/validate_rules.py
 - Operator doc: [`docs/redteam-bridge.md`](redteam-bridge.md)
 - Prefer regression: campaign → expected audit reason → detection fire
 
-Gaps (PI-02 adjacent-only category coverage, AT-02 sensitive-file sample) are listed in the bridge with `detection_gap: true` or notes.
+Gaps that still need a `detection_gap` row are listed in the machine-readable bridge. AT-02 and PI-02 are mapped.
 
 ## How to propose a new detection
 

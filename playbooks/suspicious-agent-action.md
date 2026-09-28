@@ -11,7 +11,7 @@
 | Control panel | `/agents` — pending approvals + agent action log |
 | Loki | `aiwall_agent_approval_denied` (denials); also filter `matched_rule_ids` / reasons in Explore |
 | ATLAS | [AML.T0050](https://atlas.mitre.org/) Command and Scripting Interpreter; AML.T0053 LLM Plugin Compromise |
-| Sample | `req-agent-001` (approval denied), `req-warn-001` (shell warn) |
+| Sample | `req-agent-001` (approval denied), `req-warn-001` (shell warn), `req-sensitive-file-001` (SSH key path) |
 
 Upstream behavior: [AIWall agent-guardrails.md](https://github.com/MohsenBahremani/AIWall/blob/main/docs/agent-guardrails.md).
 

@@ -1,15 +1,15 @@
 # Playbook: Secret leak detected
 
-**Trigger:** AIWall blocked (or redacted) an outbound prompt because a secret matched the scanner.
+**Trigger:** AIWall blocked (or redacted) a secret in an outbound prompt **or** in a model reply.
 
 | Signal | Value |
 |---|---|
 | Audit `decision` | `block` (hard stop) or `redact` (masked then forwarded) |
-| Audit `reason` | `secret-detected` or `secret-redacted` |
-| Wazuh | Rule **107210** (`secret-detected` only) |
-| Sigma / Loki | `aiwall_secret_leak_blocked` / `aiwall_secret_redacted` |
+| Audit `reason` | `secret-detected`, `secret-redacted`, or `output-secret-detected` |
+| Wazuh | Rule **107210** (`secret-detected`) or **107221** (`output-secret-detected`) |
+| Sigma / Loki | `aiwall_secret_leak_blocked` / `aiwall_secret_redacted` / `aiwall_output_secret_blocked` |
 | ATLAS | [AML.T0057](https://atlas.mitre.org/) LLM Data Leakage |
-| Sample | `req-secret-001`, `req-redact-001` |
+| Sample | `req-secret-001`, `req-redact-001`, `req-output-secret-001` |
 
 Upstream behavior: [AIWall secret-scanning.md](https://github.com/MohsenBahremani/AIWall/blob/main/docs/secret-scanning.md).
 
