@@ -11,6 +11,9 @@ They mirror the Wazuh alerts in [`../wazuh/rules/aiwall_rules.xml`](../wazuh/rul
 | [`rules/aiwall_daily_limit.yml`](rules/aiwall_daily_limit.yml) | 107213 | `block` + `daily-limit` |
 | [`rules/aiwall_agent_approval_denied.yml`](rules/aiwall_agent_approval_denied.yml) | 107214 | `block` + `approval-denied` |
 | [`rules/aiwall_agent_shell_risk.yml`](rules/aiwall_agent_shell_risk.yml) | 107215 | `warn` + `reason` starts with `shell risk` |
+| [`rules/aiwall_prompt_injection.yml`](rules/aiwall_prompt_injection.yml) | 107217 | `block` + `injection-detected` |
+| [`rules/aiwall_jailbreak.yml`](rules/aiwall_jailbreak.yml) | 107218 | `block` + `jailbreak-detected` |
+| [`rules/aiwall_extraction_rate.yml`](rules/aiwall_extraction_rate.yml) | 107219 | `block` + `extraction-rate` |
 | [`rules/aiwall_sensitive_file_access.yml`](rules/aiwall_sensitive_file_access.yml) | 107220 | `block` + `reason` starts with `sensitive-file-access` |
 | [`rules/aiwall_output_secret_blocked.yml`](rules/aiwall_output_secret_blocked.yml) | 107221 | `block` + `output-secret-detected` |
 

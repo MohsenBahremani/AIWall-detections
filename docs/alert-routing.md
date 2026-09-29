@@ -69,7 +69,7 @@ curl -fsS -d "$BODY" \
   "https://ntfy.sh/aiwall-alerts"
 ```
 
-Wire the script in Wazuh via an **integrator** or **active-response** that filters on `rule.id` in `107210-107215`. Exact XML depends on your Wazuh version — see [Wazuh integrator docs](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html).
+Wire the script in Wazuh via an **integrator** or **active-response** that filters on `rule.id` in `107210-107221`. Exact XML depends on your Wazuh version — see [Wazuh integrator docs](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html).
 
 ## 3. Wazuh → generic webhook
 

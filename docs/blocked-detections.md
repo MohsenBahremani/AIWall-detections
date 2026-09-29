@@ -1,7 +1,7 @@
-# Blocked detection work (needs AIWall core)
+# Shipped detection work (Community core)
 
 These items were tracked in the long-term plan under Detection Integration.
-Prompt-injection and extraction-rate reasons now ship in Community core.
+They now ship in Community core and in this pack.
 
 ## Prompt injection / jailbreak / meta-prompt — shipped
 
@@ -22,7 +22,19 @@ Core computes a rolling request/token window (`rate_limits`) and emits
 See playbook [`extraction-rate-blocked.md`](../playbooks/extraction-rate-blocked.md)
 and AIWall `docs/configuration.md`.
 
-## Remaining product gaps (not SIEM-blocked)
+## Sensitive-file access (AT-02) — shipped
+
+Agent file tools that hit SSH keys, cloud creds, and similar paths emit
+`sensitive-file-access:<rule_id>`. Wazuh **107220** / Sigma
+`aiwall_sensitive_file_access` match the prefix.
+
+## Output-secret DLP (SE-03 reply path) — shipped
+
+Secrets in **model replies** emit `output-secret-detected` when
+`output.contains_secret` is configured. Wazuh **107221** / Sigma
+`aiwall_output_secret_blocked`.
+
+## Remaining follow-ups (not SIEM-blocked)
 
 | Item | Notes |
 |---|---|

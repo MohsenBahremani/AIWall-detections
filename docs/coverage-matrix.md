@@ -37,12 +37,11 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 | **AML.T0034** | Cost-threshold and daily-limit blocks stop abusive or runaway spend |
 | **AML.T0046** | Daily limits also blunt chaff / flood style usage |
 | **AML.T0050** | Agent shell / interpreter actions denied after approval failure, or warned in the shell-risk band |
-| **AML.T0053** | Agent tools/plugins are the execution surface being constrained |
+| **AML.T0053** | Agent tools are constrained: shell/plugin actions, and file reads of SSH keys or credential paths (`sensitive-file-access:<rule_id>`) |
 | **AML.T0051** | Instruction-override / role-hijack probes blocked as `injection-detected` |
 | **AML.T0054** | Jailbreak persona probes blocked as `jailbreak-detected` |
 | **AML.T0056** | Meta-prompt extraction probes share the jailbreak detection path |
 | **AML.T0024** | Rolling request/token floods blocked as `extraction-rate` |
-| **AML.T0053** | Agent file tools targeting SSH keys / credential paths blocked as `sensitive-file-access:<rule_id>` |
 | **AML.T0029** | Upstream `decision=error` is an availability signal (dependency or resource failure), not proof of attack |
 
 ## Gaps (honest)

@@ -60,21 +60,23 @@ python3 validation/validate_rules.py
 
 | Alert / reason | Playbook |
 |---|---|
-| Secret leak / redact | [playbooks/secret-leak-detected.md](playbooks/secret-leak-detected.md) |
+| Secret leak / redact / output DLP | [playbooks/secret-leak-detected.md](playbooks/secret-leak-detected.md) |
 | Child / category block | [playbooks/child-safety-block.md](playbooks/child-safety-block.md) |
 | Suspicious agent action | [playbooks/suspicious-agent-action.md](playbooks/suspicious-agent-action.md) |
+| Prompt injection / jailbreak | [playbooks/prompt-injection-blocked.md](playbooks/prompt-injection-blocked.md) |
+| Extraction rate / volume flood | [playbooks/extraction-rate-blocked.md](playbooks/extraction-rate-blocked.md) |
 
 ATLAS mapping for every detection: [docs/coverage-matrix.md](docs/coverage-matrix.md).  
 Red team technique map: [docs/redteam-bridge.md](docs/redteam-bridge.md).  
 Alert routing (ntfy / webhook / Loki): [docs/alert-routing.md](docs/alert-routing.md).  
 What ships vs what’s next: [docs/detection-roadmap.md](docs/detection-roadmap.md).  
-Blocked gaps (injection / rate): [docs/blocked-detections.md](docs/blocked-detections.md).
+Shipped core reasons (injection, jailbreak, extraction-rate, output DLP): [docs/blocked-detections.md](docs/blocked-detections.md).
 
 ## What’s in the box
 
 | Content | Description |
 |---|---|
-| **Wazuh** | Decoders + parent rules 107200/107201 (level 0) and alert rules 107210–107216 |
+| **Wazuh** | Decoders + parent rules 107200/107201 (level 0) and alert rules 107210–107221 |
 | **Sigma** | Mirrors of the alert rules (Lucene-convertible) |
 | **Grafana** | Overview dashboard (decisions, cost, models, providers) |
 | **Loki** | LogQL pack for alerts plus roll-ups / triage queries |

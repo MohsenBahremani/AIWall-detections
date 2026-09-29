@@ -9,13 +9,13 @@ Where AIWall-detections is going next, and what already ships for operators.
 | **Contract** | `aiwall.audit.v1` JSONL from AIWall (`GET /events/export.jsonl`) |
 | **Samples** | `validation/samples/aiwall.audit.v1.sample.jsonl` + expected hits |
 | **Wazuh** | Decoders + rules 107210–107221 (secret, category, cost, daily-limit, agent deny, shell-risk warn, cost-budget, injection, jailbreak, extraction-rate, sensitive-file, output-secret) |
-| **Sigma** | Nine mirrors, Lucene-convertible (no mirror for the Pro-only `cost-budget` rule) |
+| **Sigma** | Eleven mirrors, Lucene-convertible (no dedicated mirror for the Pro-only `cost-budget` reason; it shares `aiwall_cost_threshold`) |
 | **Grafana / Loki** | Overview dashboard + sample compose stack + LogQL pack |
 | **ATLAS** | Every detection mapped (`docs/coverage-matrix.md`) |
 | **Red team bridge** | Technique → sample → rule map (`docs/redteam-bridge.md`) |
 | **Alert routing** | ntfy / webhook examples by Wazuh rule id (`docs/alert-routing.md`) |
 | **E2E lab script** | `scripts/validate_export.sh` (+ `check_export_hits.py`) |
-| **Playbooks** | Secret leak, child safety, suspicious agent action |
+| **Playbooks** | Secret leak (incl. output DLP), child safety, suspicious agent action, prompt injection / jailbreak, extraction-rate |
 | **CI** | `validation/validate_rules.py` on push/PR |
 
 Follow the [README quick start](../README.md#quick-start-load-rules-against-aiwall-logs) to wire logs once.
@@ -49,7 +49,7 @@ python3 validation/validate_rules.py
 - Operator doc: [`docs/redteam-bridge.md`](redteam-bridge.md)
 - Prefer regression: campaign → expected audit reason → detection fire
 
-Gaps that still need a `detection_gap` row are listed in the machine-readable bridge. AT-02 and PI-02 are mapped.
+The current red-team catalog has no `detection_gap` rows; AT-02 and PI-02 are mapped. Re-add a `detection_gap` entry if a new technique ships without a stable audit reason.
 
 ## How to propose a new detection
 

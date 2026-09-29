@@ -12,6 +12,7 @@
 
 ### Changed
 
+- Operator docs now list Wazuh **107210–107221**, the full Sigma and Loki packs, and the injection / extraction-rate playbooks.
 - **Breaking for existing operators:** Wazuh rules renumbered into the `1072xx` range (parents `107200`/`107201`, alerts `107210`–`107221`). Re-copy `wazuh/rules/aiwall_rules.xml` and update any alerting keyed to the old ids.
 
 ### Fixed
