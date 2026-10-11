@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-11
+
 ### Added
 
 - Wazuh rules **107217** / **107218** for `injection-detected` and `jailbreak-detected`, with Sigma, Loki, sample corpus, ATLAS map, and playbook.
@@ -19,6 +21,10 @@
 
 - JSONL parent rule matching in the Wazuh decoders.
 - `docs/detection-roadmap.md` advertised rules `107210`–`107215`, omitting `107216` (cost-budget blocks), and its quick-start link resolved to a nonexistent `docs/README.md`.
+
+### Compatibility
+
+- Requires AIWall Community `>= 0.2.0` emitting `aiwall.audit.v1` with closed `reason` values documented in upstream `docs/audit-export.md`.
 
 ## [0.1.0] - 2026-08-27
 
