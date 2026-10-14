@@ -76,6 +76,7 @@ def main() -> int:
         print("sample file is empty", file=sys.stderr)
         return 1
 
+    saw_org = False
     for index, line in enumerate(lines, start=1):
         if not PREMATCH_RE.search(line):
             print(f"line {index}: prematch would miss event", file=sys.stderr)
@@ -100,7 +101,17 @@ def main() -> int:
         if not named["decision"]:
             print(f"line {index}: empty decision", file=sys.stderr)
             return 1
+        org = event.get("org")
+        if org is not None:
+            if not isinstance(org, str) or not org.strip():
+                print(f"line {index}: org must be a non-empty string", file=sys.stderr)
+                return 1
+            saw_org = True
         print(f"line {index}: ok decoder fields -> {named}")
+
+    if not saw_org:
+        print("expected one sample line to carry org", file=sys.stderr)
+        return 1
 
     print(f"PASS: {len(lines)} sample events match aiwall-audit decoder fields")
     return 0

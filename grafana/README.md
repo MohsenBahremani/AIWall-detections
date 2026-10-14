@@ -14,6 +14,8 @@ Panels (Loki datasource `aiwall-loki`, sample corpus):
 | Top models / Top providers | `topk` by event count |
 | Recent AIWall events | Raw `aiwall.audit.v1` lines |
 
+The **Org** box filters Recent AIWall events. Leave it empty to show every line. Type a label such as `homelab` to keep lines that carry that `org` value.
+
 Default time range is `now-1h` → `now`. Promtail stamps lines at ingest time (the JSON `timestamp` field is unchanged for LogQL `| json`).
 
 ## Run the sample stack

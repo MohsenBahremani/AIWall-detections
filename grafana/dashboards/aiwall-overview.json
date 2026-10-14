@@ -536,7 +536,7 @@
             "uid": "aiwall-loki"
           },
           "editorMode": "code",
-          "expr": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\"",
+          "expr": "{job=\"aiwall\"} | json | schema=\"aiwall.audit.v1\" |= \"$org\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -550,7 +550,27 @@
     "audit"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "Org",
+        "name": "org",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",

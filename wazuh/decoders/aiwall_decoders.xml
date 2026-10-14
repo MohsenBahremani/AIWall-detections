@@ -1,5 +1,6 @@
 <!--
   AIWall audit JSONL decoders (schema aiwall.audit.v1)
+  JSON_Decoder extracts every object key, including the optional org label.
   Install: copy to /var/ossec/etc/decoders/ on the Wazuh manager, then restart
   wazuh-manager (or reload ruleset). See wazuh/README.md.
 -->

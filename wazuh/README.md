@@ -11,6 +11,7 @@ Matches `aiwall.audit.v1` JSON Lines and extracts fields via Wazuh `JSON_Decoder
 | `schema` | always `aiwall.audit.v1` |
 | `id`, `timestamp`, `request_id` | event identity |
 | `user_id`, `provider`, `model` | context |
+| `org` | optional gateway label; absent when unset |
 | `decision`, `reason`, `policy_id` | outcome |
 | `matched_rule_ids`, `categories` | arrays |
 | `input_length`, `output_length`, `*_tokens`, `estimated_cost`, `redaction_count`, `latency_ms` | metrics |

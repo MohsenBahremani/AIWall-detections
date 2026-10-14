@@ -71,6 +71,17 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
+    variables = dashboard.get("templating", {}).get("list") or []
+    org_var = next((item for item in variables if item.get("name") == "org"), None)
+    if org_var is None or org_var.get("type") != "textbox":
+        print("dashboard needs an Org textbox filter", file=sys.stderr)
+        return 1
+    recent = next(panel for panel in panels if panel.get("title") == "Recent AIWall events")
+    recent_expr = str((recent.get("targets") or [{}])[0].get("expr") or "")
+    if "$org" not in recent_expr:
+        print("Recent AIWall events must apply the org filter", file=sys.stderr)
+        return 1
+
     if "schema" not in found_bits:
         print("queries should filter schema=aiwall.audit.v1", file=sys.stderr)
         return 1

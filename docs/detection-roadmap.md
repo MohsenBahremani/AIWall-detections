@@ -22,11 +22,7 @@ Follow the [README quick start](../README.md#quick-start-load-rules-against-aiwa
 
 ## Near-term candidates
 
-Prioritized for Community follow-ups (issue-sized):
-
-1. **Multi-tenant / org labels** — if AIWall adds org fields to audit export, extend decoders and dashboards.
-
-Prompt-injection / jailbreak and extraction-rate reasons shipped in core (2026-09); SIEM packs cover PI-01 / PI-02 / PI-03, AT-02, and SE-03 output DLP. Remaining follow-ups: multi-tenant / org labels.
+Prompt-injection / jailbreak and extraction-rate reasons shipped in core (2026-09); SIEM packs cover PI-01 / PI-02 / PI-03, AT-02, and SE-03 output DLP. The optional `org` label ships on `aiwall.audit.v1` when the gateway sets `logging.org`. There is no current near-term SIEM gap of that kind.
 
 ## End-to-end lab check
 

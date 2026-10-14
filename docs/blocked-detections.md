@@ -36,9 +36,7 @@ Secrets in **model replies** emit `output-secret-detected` when
 
 ## Remaining follow-ups (not SIEM-blocked)
 
-| Item | Notes |
-|---|---|
-| Multi-tenant / org labels | If core adds org fields to export, extend decoders and dashboards |
+None. The optional `org` label is on the audit line, the JSON decoder, and the Grafana Org filter. It is a label, not a tenant product.
 
 ## Related
 

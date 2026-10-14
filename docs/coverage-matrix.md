@@ -47,7 +47,7 @@ Roll-up query `aiwall_all_blocks` is not a separate detection; it surfaces the b
 ## Gaps (honest)
 
 Community detections now cover the ATLAS techniques that had dedicated core reasons.
-Remaining follow-up is multi-tenant / org labels if core adds those fields.
+The optional `org` label is on the sample corpus and the Grafana Org filter. It is not a tenant boundary.
 
 ## Maintaining the matrix
 
