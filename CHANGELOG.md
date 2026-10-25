@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-24
+
 ### Added
 
 - Optional `org` label on `aiwall.audit.v1`. One sample line carries it. The Grafana overview has an Org filter. The JSON decoder already extracts the field.
+
+### Compatibility
+
+- Requires AIWall Community `>= 0.2.0` emitting `aiwall.audit.v1`. This pack is `0.2.1`.
 
 ## [0.2.0] - 2026-10-11
 

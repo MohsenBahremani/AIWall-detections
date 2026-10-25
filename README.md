@@ -2,7 +2,7 @@
 
 Detection packs for [AIWall](https://github.com/MohsenBahremani/AIWall) audit logs: Wazuh, Sigma, Grafana/Loki, playbooks, and MITRE ATLAS mappings.
 
-**Release:** `0.2.0`.  
+**Release:** `0.2.1`.  
 **Event contract:** `aiwall.audit.v1` JSON Lines — no raw prompts. Requires AIWall Community `>= 0.2.0`.  
 Upstream schema: [AIWall `docs/audit-export.md`](https://github.com/MohsenBahremani/AIWall/blob/main/docs/audit-export.md).
 
